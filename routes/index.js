@@ -14,9 +14,8 @@ const SEARCH = {
 
 router.get('/', function(req, res){
   yelp.searchBusiness(SEARCH)
-    .then((result) => {
-      console.dir(result)
-      res.render('index', { locs: results })
+    .then((results) => {
+      res.render('index', { locs: results.businesses })
     })
 })
 
