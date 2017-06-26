@@ -19,6 +19,7 @@
     "express": "^4.15.3",
     "express-session": "^1.15.3",
     "node-yelp-api": "^1.1.0",
+    "node-yelp-api-v3": "^1.0.1",
     "request": "^2.81.0"
   }
 }
