@@ -4,7 +4,7 @@
   "description": "Unless you're eating one right now, you need a gyro",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js -w",
+    "start": "node app.js",
     "test": "test"
   },
   "keywords": [

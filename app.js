@@ -1,7 +1,7 @@
 var express =  require('express')
 var request = require('request')
 var bodyParser = require('body-parser')
-var yelp = require('node-yelp-api')
+var yelp = require('node-yelp-api-v3')
 var app = express()
 
 var indexRoutes = require('./routes/index')
@@ -13,9 +13,8 @@ app.use(express.static(__dirname + '/public'))
 
 
 const port = process.env.PORT || 8080
-const ip = process.env.IP || 'localhost'
-var server = app.listen(port, ip, function(){
-  console.log('listening at ' + ip + ':' + port)
+var server = app.listen(port, function(){
+  console.log('listening at ' + port)
 })
 
 module.exports = server
