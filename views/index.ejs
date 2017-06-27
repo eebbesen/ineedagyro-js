@@ -1,13 +1,45 @@
-<em>Results from Yelp!</em>
-<hr/>
-<!-- <h2>Enter ZIP code where you're gyro is needed</h2> -->
+<!DOCTYPE HTML>
+<html>
+<head>
 
-<h3>Here are gyros for 55104:</h3>
-<div class="container">
-  <% locs.map((store) => {%>
-    <div>
-      <p><a href="<%= store.url %>"><%= store.name %></a></p>
-      <p><%= store.location.address1 %><h5>Closed? <%= store.is_closed %></h5></p>
-    </div>
-  <%})%>
-</div>
+</head>
+<body>
+  <script>
+    function formatResults(results){
+      const json = JSON.parse(results)
+      console.log(json.locs)
+      var str = ''
+      json.locs.map((loc) => {
+        str += '<div class="record"><a href="'+ loc.url + '">' + loc.name + '</a> ' + loc.location.address1 + '</div>'
+      })
+
+      document.querySelector('.results').innerHTML = str
+    }
+
+    var getLocation = function(){
+      navigator.geolocation.getCurrentPosition(function(location) {
+        const xhr = new XMLHttpRequest()
+        xhr.open("GET", window.location + 'recs?lat=' + location.coords.latitude + '&lng=' + location.coords.longitude)
+
+        xhr.onload = function () {
+          formatResults(xhr.response)
+        };
+
+        const rr = xhr.send()
+        return location;
+      })
+    }
+
+    getLocation()
+
+  </script>
+  <em>Results from Yelp!</em>
+  <hr/>
+  <!-- <h2>Enter ZIP code where you're gyro is needed</h2> -->
+
+  <h3>Here are gyros for you:</h3>
+  <div class="results">
+    Loading...
+  </div>
+</body>
+</html>
