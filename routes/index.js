@@ -12,11 +12,25 @@ const SEARCH = {
   radius: 2500
 }
 
-router.get('/', function(req, res){
-  yelp.searchBusiness(SEARCH)
+router.get('/recs', function(req, res){
+  s = {
+    term: 'gyro',
+    latitude: req.query.lat,
+    longitude: req.query.lng,
+    radius: 2000
+  }
+  yelp.searchBusiness(s)
     .then((results) => {
-      res.render('index', { locs: results.businesses })
+      res.send({ locs: results.businesses })
     })
+})
+
+router.get('/', function(req, res){
+  // yelp.searchBusiness(SEARCH)
+  //   .then((results) => {
+  //     res.render('index', { locs: results.businesses })
+  //   })
+  res.render('index', { locs: [] })
 })
 
 module.exports = router
