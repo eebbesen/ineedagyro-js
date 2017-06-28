@@ -18,6 +18,9 @@ router.get('/recs', function(req, res){
     .then((results) => {
       res.send({ locs: results.businesses })
     })
+    .catch((err) => {
+      console.log(err)
+    })
 })
 
 router.get('/', function(req, res){

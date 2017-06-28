@@ -11,8 +11,25 @@ Uses browser's `navigation.geolocation.getCurrentPosition()` to query [Yelp's Fu
 export YELP_KEY=<your_yelp_API_ID>
 export YELP_SECRET=<your_yelp_API_secret>
 ```
-1. Install and run!
+
+### Using npm directly
 ```
 npm install
 npm start
+```
+
+### Using Docker
+```
+docker-compose up -d
+```
+
+If you want to view logs, omit `-d` from the previous command _or_
+```
+docker-compose logs -f
+```
+
+#### Build
+To ensure you're not using an out-of-date image
+```
+docker-compose build
 ```
