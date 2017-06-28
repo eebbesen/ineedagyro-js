@@ -8,5 +8,3 @@ USER anitagyro
 WORKDIR /usr/src/ineedagyro
 RUN npm install
 CMD ["npm", "start"]
-
-
