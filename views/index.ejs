@@ -7,13 +7,12 @@
   <script>
     function formatResults(results){
       const json = JSON.parse(results)
-      console.log(json.locs)
       var str = ''
       json.locs.map((loc) => {
         str += '<div class="record"><a href="'+ loc.url + '">' + loc.name + '</a> ' + loc.location.address1 + '</div>'
       })
 
-      document.querySelector('.results').innerHTML = str
+      document.querySelector('#results').innerHTML = str
     }
 
     var getLocation = function(){
@@ -37,7 +36,7 @@
   <hr/>
 
   <h3>Here are gyros for you:</h3>
-  <div class="results">
+  <div id="results">
     Loading...
   </div>
 </body>
