@@ -14,6 +14,7 @@ router.get('/recs', function(req, res){
     longitude: req.query.lng,
     radius: 2000
   }
+
   yelp.searchBusiness(s)
     .then((results) => {
       res.send({ locs: results.businesses })
