@@ -2,12 +2,14 @@
 function formatResults(results) {
   var str = ''
   const json = JSON.parse(results)
-  if (json.locs) {
+  if (json.locs && json.locs.length > 0) {
     json.locs.map((loc) => {
       str += '<div class="record"><a href="'
           +  loc.url + '">' + loc.name + '</a> '
           +  loc.location.address1 + '</div>'
     })
+  } else {
+    str = '<div>No results found near you -- συγνώμη!</div>'
   }
 
   return str

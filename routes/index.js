@@ -8,7 +8,7 @@ const yelp = new Yelp({
 })
 
 router.get('/recs', function(req, res){
-  s = {
+  var s = {
     term: 'gyro',
     latitude: req.query.lat,
     longitude: req.query.lng,

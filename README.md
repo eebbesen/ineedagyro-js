@@ -33,3 +33,9 @@ To ensure you're not using an out-of-date image
 ```
 docker-compose build
 ```
+
+## Test
+```
+npm test
+```
+will run mocha for the server-side JavaScript and karma for the client-side tests
