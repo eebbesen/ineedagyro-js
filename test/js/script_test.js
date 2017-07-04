@@ -15,14 +15,14 @@ describe('formatResults', () => {
   describe('has no locs', () => {
     it ('retuns an empty string', () => {
       const ret = formatResults('{"locs":[]}')
-      expect(ret).toEqual('')
+      expect(ret).toEqual('<div>No results found near you -- συγνώμη!</div>')
     })
   })
 
   describe('has no json', () => {
     it ('retuns an empty string', () => {
       const ret = formatResults('{}')
-      expect(ret).toEqual('')
+      expect(ret).toEqual('<div>No results found near you -- συγνώμη!</div>')
     })
   })
 })
