@@ -8,7 +8,7 @@ function formatResults(json) {
           + '</div>'
     })
   } else {
-    str = '<div>No results found within 60 km of you -- συγνώμη!</div>'
+    str = '<div>No results found within 40 km of you -- συγνώμη!</div>'
   }
 
   return str
