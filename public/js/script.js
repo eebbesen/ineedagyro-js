@@ -4,12 +4,25 @@ function formatResults(json) {
     json.locs.map((loc) => {
       str += '<div class="record"><a href="'
           +  loc.url + '">' + loc.name + '</a> '
-          +  loc.location.address1 + '</div>'
+          +  formatGeoInfo(loc)
+          + '</div>'
     })
   } else {
     str = '<div>No results found within 60 km of you -- συγνώμη!</div>'
   }
 
+  return str
+}
+
+function formatGeoInfo(loc) {
+  var str = ''
+  if (loc.location.address1) {
+    var distance = loc.distance ? Math.round(parseInt(loc.distance)) : 0
+    str += loc.location.address1
+    str += ' (' + distance + ' meters)'
+  } else {
+    str = '(food truck)'
+  }
   return str
 }
 
