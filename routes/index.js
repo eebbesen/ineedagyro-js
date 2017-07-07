@@ -1,8 +1,6 @@
 var express = require('express')
 var router = express.Router()
 
-const RADS = [1500, 3000, 9000, 30000, 60000]
-
 const Yelp = require('node-yelp-api-v3')
 const yelp = new Yelp({
   consumer_key: process.env.YELP_KEY,
@@ -10,12 +8,11 @@ const yelp = new Yelp({
 })
 
 router.get('/recs', function(req, res){
-  const count = parseInt(req.query.c || 1)
   const s = {
     term: 'gyro',
     latitude: req.query.lat,
     longitude: req.query.lng,
-    radius: RADS[count]
+    sort_by: 'distance'
   }
 
   yelp.searchBusiness(s)

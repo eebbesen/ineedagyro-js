@@ -17,14 +17,14 @@ describe('formatResults', () => {
   describe('has no locs', () => {
     it ('retuns an empty string', () => {
       const ret = formatResults('{"locs":[]}')
-      expect(ret).toEqual('<div>No results found within 60 km of you -- συγνώμη!</div>')
+      expect(ret).toEqual('<div>No results found within 40 km of you -- συγνώμη!</div>')
     })
   })
 
   describe('has no json', () => {
     it ('retuns an empty string', () => {
       const ret = formatResults('{}')
-      expect(ret).toEqual('<div>No results found within 60 km of you -- συγνώμη!</div>')
+      expect(ret).toEqual('<div>No results found within 40 km of you -- συγνώμη!</div>')
     })
   })
 })
