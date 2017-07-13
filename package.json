@@ -1,5 +1,8 @@
 {
   "name": "ineedagyro",
+  "engines":{
+    "node":"8.1.4"
+  },
   "version": "1.0.0",
   "description": "Unless you're eating one right now, you need a gyro",
   "main": "app.js",
