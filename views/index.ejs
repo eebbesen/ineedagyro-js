@@ -3,14 +3,18 @@
 <head>
   <script type="text/javascript" src="/js/script.js"></script>
   <link rel="shortcut icon" type="image/x-icon" href="/images/gyro_2.png" />
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.11.4/paper-full.min.js"></script>
+  <script type="text/paperscript" canvas="gyroCanvas">
+    var raster = new Raster({ source: "/images/open_gyro_outline_500.jpeg", position: view.center })
+    raster.scale(0.25)
+    function onFrame(event) {
+      raster.rotate(3)
+    }
+  </script>
 </head>
 <body onload="populateResults()">
-  <em>Results from Yelp!</em>
-  <hr/>
-
-  <h3>Here are gyros for you:</h3>
   <div id="results">
-    Loading...
+    <canvas id="gyroCanvas" resize></canvas>
   </div>
 </body>
 </html>

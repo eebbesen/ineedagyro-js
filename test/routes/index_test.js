@@ -24,7 +24,7 @@ describe('router', function(){
       .get('/')
       .end(function(err, res) {
         res.status.should.equal(200)
-        res.text.should.contain('Loading...')
+        res.text.should.contain('open_gyro_outline_500.jpeg')
 
         done()
       })

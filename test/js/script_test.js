@@ -8,7 +8,8 @@ describe('formatResults', () => {
 
     it ('retuns a string of results', () => {
       const ret = formatResults(json)
-      expect(ret).toEqual('<div class="record"><a href="https://fake.business.biz/1">Hero Gyros</a> 1600 Grand Ave (1003 meters)</div>'
+      expect(ret).toEqual('<em>Results from Yelp!</em><hr/><h3>Here are gyros for you:</h3>'
+                        + '<div class="record"><a href="https://fake.business.biz/1">Hero Gyros</a> 1600 Grand Ave (1003 meters)</div>'
                         + '<div class="record"><a href="https://fake.business.biz/2">Russkaya Shaverma</a> 900 University Ave (88 meters)</div>'
                         + '<div class="record"><a href="https://fake.business.biz/3">Gyro Truck</a> (food truck)</div>')
     })
@@ -33,9 +34,9 @@ describe('showLocations', () => {
   beforeEach(() => {
     const resultsElement = document.createElement('div')
     resultsElement.setAttribute('id', 'results')
-    resultsElement.innerHTML = 'Loading...'
+    resultsElement.innerHTML = '(spinning gyro)'
     document.body.appendChild(resultsElement)
-    expect(document.querySelector('#results').innerHTML).toEqual('Loading...')
+    expect(document.querySelector('#results').innerHTML).toEqual('(spinning gyro)')
   })
 
   it('updates #results element', () => {
