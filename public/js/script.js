@@ -1,9 +1,10 @@
 function formatResults(json) {
   var str = ''
   if (json.locs && json.locs.length > 0) {
-    str +='<em>Results from Yelp!</em>'
-        + '<hr/>'
-        + '<h3>Here are gyros for you:</h3>'
+    str +='<div class="results-header">'
+        +   '<em>Results from Yelp!</em><hr/>'
+        +   '<h3>Here are gyros for you:</h3>'
+        + '</div>'
     json.locs.map((loc) => {
       str += '<div class="record"><a href="'
           +  loc.url + '">' + loc.name + '</a> '
