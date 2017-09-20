@@ -31,3 +31,9 @@
 .address {
   font-size: 0.7em;
 }
+
+.gyro_error {
+  border: 1px solid #2440F2;
+  color: white;
+  background-color: #2440F2;
+}

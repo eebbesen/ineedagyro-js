@@ -47,3 +47,16 @@ describe('showLocations', () => {
     expect(document.querySelector('#results').innerHTML).toEqual(newHtml)
   })
 })
+
+describe('locationError', () => {
+  it('displays error message', () => {
+    const message = locationError({code: 2, message: 'bad things'})
+    expect(message).toEqual(
+      '<div class="gyro_error">' +
+      '<h1>We cannot find your gyros because we are unable to get your location from your browser :(. Please enable location sharing.</h1>' +
+      '<p>bad things</p>' +
+      '<p>error code: 2</p>' +
+      '</div>')
+  })
+})
+
