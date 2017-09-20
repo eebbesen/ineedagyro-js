@@ -22,8 +22,8 @@ function formatGeoInfo(loc) {
   var str = ''
   if (loc.location.address1) {
     var distance = loc.distance ? Math.round(parseInt(loc.distance)) : 0
-    str += loc.location.address1
-    str += ' (' + distance + ' meters)'
+    str += '&nbsp;&nbsp;(' + distance + ' meters)'
+    str += '&nbsp;&nbsp;<span class="address" >' + loc.location.address1 + '</span>'
   } else {
     str = '(food truck)'
   }
