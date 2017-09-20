@@ -42,3 +42,19 @@ docker-compose logs -f
 npm test
 ```
 will run mocha for the server-side JavaScript and karma for the client-side tests
+
+## Helpy things
+### cURL
+#### Get token
+Assuming you've set environment variables as shown above:
+```
+curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d "client_id=$YELP_KEY&client_secret=$YELP_SECRET" https://api.yelp.com/oauth2/token
+```
+
+#### Call with token
+Export the Yelp token you received (see above)
+`export YELP_TOKEN=<see_get_token_section>`
+then execute the request
+```
+curl -H "Authorization: Bearer $YELP_TOKEN" https://api.yelp.com/v3/businesses/search?location=48226&term=gyro
+```
