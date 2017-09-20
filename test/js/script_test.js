@@ -9,9 +9,11 @@ describe('formatResults', () => {
     it ('retuns a string of results', () => {
       const ret = formatResults(json)
       expect(ret).toEqual('<div class="results-header"><em>Results from Yelp!</em><hr/><h3>Here are gyros for you:</h3></div>'
-                        + '<div class="record"><a href="https://fake.business.biz/1">Hero Gyros</a> 1600 Grand Ave (1003 meters)</div>'
-                        + '<div class="record"><a href="https://fake.business.biz/2">Russkaya Shaverma</a> 900 University Ave (88 meters)</div>'
-                        + '<div class="record"><a href="https://fake.business.biz/3">Gyro Truck</a> (food truck)</div>')
+                        + '<div class="container">'
+                        + '<a class="button" href="https://fake.business.biz/1"><div class="outer">Hero Gyros&nbsp;&nbsp;(1003 meters)<p><span class="address" >1600 Grand Ave</span></p></div></a>'
+                        + '<a class="button" href="https://fake.business.biz/2"><div class="outer">Russkaya Shaverma&nbsp;&nbsp;(88 meters)<p><span class="address" >900 University Ave</span></p></div></a>'
+                        + '<a class="button" href="https://fake.business.biz/3"><div class="outer">Gyro Truck (food truck)</div></a>'
+                        + '</div>')
     })
   })
 

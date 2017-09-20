@@ -19,19 +19,22 @@ npm start
 ```
 
 ### Using Docker
-```
-docker-compose up -d
-```
-
-If you want to view logs, omit `-d` from the previous command _or_
-```
-docker-compose logs -f
-```
-
 #### Build
 To ensure you're not using an out-of-date image
 ```
 docker-compose build
+```
+
+#### Run
+```
+docker-compose up -d
+```
+Then browse to http://localhost:8081/
+
+#### Other options
+If you want to view logs, omit `-d` from the previous command _or_
+```
+docker-compose logs -f
 ```
 
 ## Test

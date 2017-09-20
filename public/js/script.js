@@ -5,12 +5,15 @@ function formatResults(json) {
         +   '<em>Results from Yelp!</em><hr/>'
         +   '<h3>Here are gyros for you:</h3>'
         + '</div>'
+
+    str += '<div class="container">'
     json.locs.map((loc) => {
-      str += '<div class="record"><a href="'
-          +  loc.url + '">' + loc.name + '</a> '
+      str += '<a class="button" href="'
+          +  loc.url + '"><div class="outer">' + loc.name
           +  formatGeoInfo(loc)
-          + '</div>'
+          + '</div></a>'
     })
+    str += '</div>'
   } else {
     str = '<div>No results found within 40 km of you -- συγνώμη!</div>'
   }
@@ -22,10 +25,10 @@ function formatGeoInfo(loc) {
   var str = ''
   if (loc.location.address1) {
     var distance = loc.distance ? Math.round(parseInt(loc.distance)) : 0
-    str += loc.location.address1
-    str += ' (' + distance + ' meters)'
+    str += '&nbsp;&nbsp;(' + distance + ' meters)'
+    str += '<p><span class="address" >' + loc.location.address1 + '</span></p>'
   } else {
-    str = '(food truck)'
+    str = ' (food truck)'
   }
   return str
 }
