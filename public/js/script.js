@@ -37,16 +37,33 @@ function showLocations(html) {
   document.querySelector('#results').innerHTML = html
 }
 
-function populateResults(c) {
-  navigator.geolocation.getCurrentPosition(function(location) {
-    const xhr = new XMLHttpRequest()
-    xhr.onload = function () {
-      const json = JSON.parse(xhr.response)
-      const html = formatResults(json)
+function locationError(err) {
+  console.log('Error getting location', err)
+  var message = '<div class="gyro_error">'
+  message += '<h1>We cannot find your gyros because we are unable to get your location from your browser :(. Please enable location sharing.</h1>'
+  message += '<p>' + err.message + '</p>'
+  if(err.code) {
+    message += '<p>error code: ' + err.code + '</p>'
+  }
+  message += '</div>'
+  return message
+}
 
-      return showLocations(html)
+function populateResults(c) {
+  navigator.geolocation.getCurrentPosition(
+    function(location) {
+      const xhr = new XMLHttpRequest()
+      xhr.onload = function () {
+        const json = JSON.parse(xhr.response)
+        const html = formatResults(json)
+
+        return showLocations(html)
+      }
+      xhr.open("GET", window.location + 'recs?lat=' + location.coords.latitude + '&lng=' + location.coords.longitude)
+      xhr.send()
+    },
+    function(err) {
+      return showLocations(locationError(err))
     }
-    xhr.open("GET", window.location + 'recs?lat=' + location.coords.latitude + '&lng=' + location.coords.longitude)
-    xhr.send()
-  })
+  )
 }
