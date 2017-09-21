@@ -21,8 +21,7 @@ function formatGeoInfo(loc) {
   if (loc.location.address1) {
     var distance = loc.distance ? Math.round(parseInt(loc.distance)) : 0
     str += `
-    &nbsp;&nbsp;(${distance} meters)
-    <p><span class="address" >${loc.location.address1}</span></p>
+    <p><span class="address" >${loc.location.address1} &smashp; ${distance} meters</span></p>
     `
   } else {
     str += `
