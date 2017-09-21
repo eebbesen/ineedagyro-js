@@ -14,8 +14,8 @@ describe('formatResults', () => {
         <hr/>
       </div>
       <div class="container">
-        <a class="button" href="https://fake.business.biz/1"><div class="outer">Hero Gyros<p><span class="address" >1600 Grand Ave &smashp; 1003 meters</span></p></div></a>
-        <a class="button" href="https://fake.business.biz/2"><div class="outer">Russkaya Shaverma<p><span class="address" >900 University Ave &smashp; 88 meters</span></p></div></a>
+        <a class="button" href="https://fake.business.biz/1"><div class="outer">Hero Gyros<p><span class="address" >1600 Grand Ave &smashp; 0.62 miles</span></p></div></a>
+        <a class="button" href="https://fake.business.biz/2"><div class="outer">Russkaya Shaverma<p><span class="address" >900 University Ave &smashp; 0.06 miles</span></p></div></a>
         <a class="button" href="https://fake.business.biz/3"><div class="outer">Gyro Truck (food truck)<p>Could be anywhere :)</p></div></a>
       </div>`
       expect(ret.replace(/\s/g,'')).toEqual(expected.replace(/\s/g,''))
@@ -46,7 +46,7 @@ describe('showLocations', () => {
     expect(document.querySelector('#results').innerHTML).toEqual('(spinning gyro)')
   })
 
-  it('updates #results element', () => {
+  it ('updates #results element', () => {
     const newHtml = '<div>New div</div>'
     showLocations(newHtml)
     expect(document.querySelector('#results').innerHTML).toEqual(newHtml)
@@ -54,7 +54,7 @@ describe('showLocations', () => {
 })
 
 describe('locationError', () => {
-  it('displays error message', () => {
+  it ('displays error message', () => {
     const message = locationError({code: 2, message: 'bad things'})
     const expected = `
     <div class="gyro_error">
@@ -64,6 +64,12 @@ describe('locationError', () => {
       </div>`
     expect(message.replace(/\s/g,'')).toEqual(
       expected.replace(/\s/g,''))
+  })
+})
+
+describe('metersToMiles', () => {
+  it ('converts properly', () => {
+    expect(metersToMiles(5000)).toEqual('3.11')
   })
 })
 
