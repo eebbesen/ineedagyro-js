@@ -19,9 +19,9 @@ function formatResults(json) {
 function formatGeoInfo(loc) {
   var str = ''
   if (loc.location.address1) {
-    var distance = loc.distance ? Math.round(parseInt(loc.distance)) : 0
+    var distance = loc.distance ? loc.distance : 0
     str += `
-    <p><span class="address" >${loc.location.address1} &smashp; ${distance} meters</span></p>
+    <p><span class="address" >${loc.location.address1} &smashp; ${metersToMiles(distance)} miles</span></p>
     `
   } else {
     str += `
@@ -66,4 +66,8 @@ function populateResults(c) {
       return showLocations(locationError(err))
     }
   )
+}
+
+function metersToMiles(meters) {
+  return (meters * 0.000621371).toFixed(2)
 }
