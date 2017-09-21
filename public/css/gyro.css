@@ -22,6 +22,10 @@
   text-align: center;
 }
 
+a:hover {
+  text-decoration: none !important;
+}
+
 .button:hover {
   border: 1px solid #2440F2;
   color: #2440F2;
@@ -36,4 +40,5 @@
   border: 1px solid #2440F2;
   color: white;
   background-color: #2440F2;
+  text-align: center;
 }

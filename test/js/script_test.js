@@ -8,12 +8,17 @@ describe('formatResults', () => {
 
     it ('retuns a string of results', () => {
       const ret = formatResults(json)
-      expect(ret).toEqual('<div class="results-header"><em>Results from Yelp!</em><hr/><h3>Here are gyros for you:</h3></div>'
-                        + '<div class="container">'
-                        + '<a class="button" href="https://fake.business.biz/1"><div class="outer">Hero Gyros&nbsp;&nbsp;(1003 meters)<p><span class="address" >1600 Grand Ave</span></p></div></a>'
-                        + '<a class="button" href="https://fake.business.biz/2"><div class="outer">Russkaya Shaverma&nbsp;&nbsp;(88 meters)<p><span class="address" >900 University Ave</span></p></div></a>'
-                        + '<a class="button" href="https://fake.business.biz/3"><div class="outer">Gyro Truck (food truck)</div></a>'
-                        + '</div>')
+      const expected = `
+      <div class="results-header">
+        <em>Results from Yelp!</em>
+        <hr/>
+      </div>
+      <div class="container">
+        <a class="button" href="https://fake.business.biz/1"><div class="outer">Hero Gyros&nbsp;&nbsp;(1003 meters)<p><span class="address" >1600 Grand Ave</span></p></div></a>
+        <a class="button" href="https://fake.business.biz/2"><div class="outer">Russkaya Shaverma&nbsp;&nbsp;(88 meters)<p><span class="address" >900 University Ave</span></p></div></a>
+        <a class="button" href="https://fake.business.biz/3"><div class="outer">Gyro Truck (food truck)<p>Could be anywhere :)</p></div></a>
+      </div>`
+      expect(ret.replace(/\s/g,'')).toEqual(expected.replace(/\s/g,''))
     })
   })
 
@@ -51,12 +56,14 @@ describe('showLocations', () => {
 describe('locationError', () => {
   it('displays error message', () => {
     const message = locationError({code: 2, message: 'bad things'})
-    expect(message).toEqual(
-      '<div class="gyro_error">' +
-      '<h1>We cannot find your gyros because we are unable to get your location from your browser :(. Please enable location sharing.</h1>' +
-      '<p>bad things</p>' +
-      '<p>error code: 2</p>' +
-      '</div>')
+    const expected = `
+    <div class="gyro_error">
+      <h1>We cannot find your gyros because we are unable to get your location from your browser :(. Please enable location sharing.</h1>
+      <p>bad things</p>
+      <p>error code: 2</p>
+      </div>`
+    expect(message.replace(/\s/g,'')).toEqual(
+      expected.replace(/\s/g,''))
   })
 })
 
