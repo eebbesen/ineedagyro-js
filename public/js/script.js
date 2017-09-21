@@ -1,34 +1,32 @@
 function formatResults(json) {
   var str = ''
   if (json.locs && json.locs.length > 0) {
-    str +='<div class="results-header">'
-        +   '<em>Results from Yelp!</em><hr/>'
-        +   '<h3>Here are gyros for you:</h3>'
-        + '</div>'
+    const header = `
+    <div class="results-header">
+      <em>Results from Yelp!</em><hr/>
+    </div>`
 
-    str += '<div class="container">'
-    json.locs.map((loc) => {
-      str += '<a class="button" href="'
-          +  loc.url + '"><div class="outer">' + loc.name
-          +  formatGeoInfo(loc)
-          + '</div></a>'
-    })
-    str += '</div>'
-  } else {
-    str = '<div>No results found within 40 km of you -- συγνώμη!</div>'
+    const recs = `
+    <div class="container">
+      ${json.locs.map((loc) => `<a class="button" href="${loc.url}"><div class="outer">${loc.name} ${formatGeoInfo(loc)}</div></a>`).join('')}
+    </div>`
+    return header + recs
   }
 
-  return str
+  return '<div>No results found within 40 km of you -- συγνώμη!</div>'
 }
 
 function formatGeoInfo(loc) {
   var str = ''
   if (loc.location.address1) {
     var distance = loc.distance ? Math.round(parseInt(loc.distance)) : 0
-    str += '&nbsp;&nbsp;(' + distance + ' meters)'
-    str += '<p><span class="address" >' + loc.location.address1 + '</span></p>'
+    str += `
+    <p><span class="address" >${loc.location.address1} &smashp; ${distance} meters</span></p>
+    `
   } else {
-    str = ' (food truck)'
+    str += `
+     (food truck)
+     <p>Could be anywhere :)</p>`
   }
   return str
 }
@@ -39,14 +37,16 @@ function showLocations(html) {
 
 function locationError(err) {
   console.log('Error getting location', err)
-  var message = '<div class="gyro_error">'
-  message += '<h1>We cannot find your gyros because we are unable to get your location from your browser :(. Please enable location sharing.</h1>'
-  message += '<p>' + err.message + '</p>'
+  var message = `
+  <div class="gyro_error">
+    <h1>We cannot find your gyros because we are unable to get your location from your browser :(. Please enable location sharing.</h1>
+    <p>${err.message}</p>
+  `
   if(err.code) {
-    message += '<p>error code: ' + err.code + '</p>'
+    message += `<p>error code: ${err.code}</p>`
   }
-  message += '</div>'
-  return message
+
+  return `${message}</div>`
 }
 
 function populateResults(c) {
