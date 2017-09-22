@@ -48,12 +48,12 @@ a:hover {
   display: inline-block;
   text-align: left;
   width: 50%;
-  padding-left: 4em;
+  padding-left: 1.3em;
 }
 
 .righty {
   display: inline-block;
   text-align: right;
   width: 50%;
-  padding-right: 4em;
+  padding-right: 1.3em;
 }
