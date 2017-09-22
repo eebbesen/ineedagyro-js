@@ -21,12 +21,10 @@ function formatGeoInfo(loc) {
   if (loc.location.address1) {
     var distance = loc.distance ? loc.distance : 0
     str += `
-    <p><span class="address" >${loc.location.address1} &smashp; ${metersToMiles(distance)} miles</span></p>
+    <div class="address" ><span class="lefty">${loc.location.address1}</span><span class="righty">${metersToMiles(distance)} miles</span></div>
     `
   } else {
-    str += `
-     (food truck)
-     <p>Could be anywhere :)</p>`
+    str += `<div class="address" ><span class="lefty">food truck</span><span class="righty">Could be anywhere :)</span></div>`
   }
   return str
 }
