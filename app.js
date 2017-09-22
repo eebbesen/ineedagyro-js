@@ -1,7 +1,5 @@
 var express =  require('express')
-var request = require('request')
 var bodyParser = require('body-parser')
-var yelp = require('node-yelp-api-v3')
 var app = express()
 
 var indexRoutes = require('./routes/index')
