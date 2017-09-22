@@ -1,5 +1,4 @@
 function formatResults(json) {
-  var str = ''
   if (json.locs && json.locs.length > 0) {
     const header = `
     <div class="results-header">
@@ -24,7 +23,7 @@ function formatGeoInfo(loc) {
     <div class="address" ><span class="lefty">${loc.location.address1}</span><span class="righty">${metersToMiles(distance)} miles</span></div>
     `
   } else {
-    str += `<div class="address" ><span class="lefty">food truck</span><span class="righty">Could be anywhere :)</span></div>`
+    str += '<div class="address" ><span class="lefty">food truck</span><span class="righty">Could be anywhere :)</span></div>'
   }
   return str
 }
@@ -57,7 +56,7 @@ function populateResults(c) {
 
         return showLocations(html)
       }
-      xhr.open("GET", window.location + 'recs?lat=' + location.coords.latitude + '&lng=' + location.coords.longitude)
+      xhr.open('GET', window.location + 'recs?lat=' + location.coords.latitude + '&lng=' + location.coords.longitude)
       xhr.send()
     },
     function(err) {

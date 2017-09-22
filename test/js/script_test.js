@@ -1,10 +1,10 @@
 describe('formatResults', () => {
   describe('has records', () => {
-    const json = {"locs":[
-                   {"url":"https://fake.business.biz/1","name":"Hero Gyros","location":{"address1":"1600 Grand Ave"},"distance":1003.12},
-                   {"url":"https://fake.business.biz/2","name":"Russkaya Shaverma","location":{"address1":"900 University Ave"},"distance":88.67},
-                   {"url":"https://fake.business.biz/3","name":"Gyro Truck","location":{"address1":""},"distance":""}
-                  ]}
+    const json = {'locs':[
+      {'url':'https://fake.business.biz/1','name':'Hero Gyros','location':{'address1':'1600 Grand Ave'},'distance':1003.12},
+      {'url':'https://fake.business.biz/2','name':'Russkaya Shaverma','location':{'address1':'900 University Ave'},'distance':88.67},
+      {'url':'https://fake.business.biz/3','name':'Gyro Truck','location':{'address1':''},'distance':''}
+    ]}
 
     it ('retuns a string of results', () => {
       const ret = formatResults(json)

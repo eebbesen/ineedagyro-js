@@ -33,10 +33,10 @@ describe('router', function(){
   it ('should render index at /recs with locs', (done) => {
     stub.resolves({
       businesses: [{
-        url: "https://fakestaurant.com/1",
-        name: "Gyro Hero",
+        url: 'https://fakestaurant.com/1',
+        name: 'Gyro Hero',
         location: {
-          address1: "1600 Grand Ave"
+          address1: '1600 Grand Ave'
         }
       }]
     })
