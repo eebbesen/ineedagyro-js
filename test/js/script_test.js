@@ -14,9 +14,9 @@ describe('formatResults', () => {
         <hr/>
       </div>
       <div class="container">
-        <a class="button" href="https://fake.business.biz/1"><div class="outer">Hero Gyros<p><span class="address" >1600 Grand Ave &smashp; 0.62 miles</span></p></div></a>
-        <a class="button" href="https://fake.business.biz/2"><div class="outer">Russkaya Shaverma<p><span class="address" >900 University Ave &smashp; 0.06 miles</span></p></div></a>
-        <a class="button" href="https://fake.business.biz/3"><div class="outer">Gyro Truck (food truck)<p>Could be anywhere :)</p></div></a>
+        <a class="button" href="https://fake.business.biz/1"><div class="outer">Hero Gyros<div class="address"><span class="lefty">1600 Grand Ave</span><span class="righty">0.62 miles</span></div></div></a>
+        <a class="button" href="https://fake.business.biz/2"><div class="outer">Russkaya Shaverma<div class="address"><span class="lefty">900 University Ave</span><span class="righty">0.06 miles</span></div></div></a>
+        <a class="button" href="https://fake.business.biz/3"><div class="outer">Gyro Truck<div class="address"><span class="lefty">food truck</span><span class="righty">Could be anywhere :)</span></div></div></a>
       </div>`
       expect(ret.replace(/\s/g,'')).toEqual(expected.replace(/\s/g,''))
     })
