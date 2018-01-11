@@ -28,4 +28,8 @@ router.get('/', function(req, res){
   res.render('index', { locs: [] })
 })
 
+router.get('/privacy', function(req, res){
+  res.render('privacy_policy')
+})
+
 module.exports = router
