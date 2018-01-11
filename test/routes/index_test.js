@@ -69,4 +69,19 @@ describe('router', function(){
         done()
       })
   })
+
+  it ('should render privacy policy at /privacy', (done) => {
+    stub.resolves({
+      businesses: [{}]
+    })
+
+    agent
+      .get('/privacy')
+      .end(function(err, res) {
+        res.status.should.equal(200)
+        res.text.should.contain('this gyro service')
+
+        done()
+      })
+  })
 })
