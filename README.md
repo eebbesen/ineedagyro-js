@@ -40,6 +40,11 @@ docker-compose logs -f
 ```
 
 ## Test
+Make sure karma-chrome-launcher is installed
+```
+npm install karma-chrome-launcher --save-dev --link
+```
+Run tests
 ```
 npm test
 ```
