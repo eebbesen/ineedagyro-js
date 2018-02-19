@@ -40,7 +40,7 @@ docker-compose logs -f
 ```
 
 ## Test
-Make sure karma-chrome-launcher is installed
+Make sure karma-chrome-launcher is installed. This may cause problems with CI.
 ```
 npm install karma-chrome-launcher --save-dev --link
 ```
