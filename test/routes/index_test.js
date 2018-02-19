@@ -1,12 +1,12 @@
 process.env.NODE_ENV = 'test'
 
-var chai = require('chai')
-var should = chai.should()
-var agent = require('supertest').agent(require('../../app'))
+const chai = require('chai')
+const should = chai.should()
+const agent = require('supertest').agent(require('../../app'))
 
 const Yelp = require('node-yelp-api-v3')
 
-var sinon = require('sinon')
+const sinon = require('sinon')
 var sandbox
 
 describe('router', function(){
