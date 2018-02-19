@@ -1,11 +1,15 @@
-var express = require('express')
-var router = express.Router()
+const express = require('express')
+const router = express.Router()
+const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
 
 const Yelp = require('node-yelp-api-v3')
 const yelp = new Yelp({
   consumer_key: process.env.YELP_KEY,
   consumer_secret: process.env.YELP_SECRET
 })
+
+// redirect to https except when local or testing
+router.use(redirectToHTTPS([/localhost:8081/, /127.0.0.1:8080/], []))
 
 router.get('/recs', function(req, res){
   const s = {
