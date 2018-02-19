@@ -9,7 +9,7 @@ const yelp = new Yelp({
 })
 
 // redirect to https except when local or testing
-// router.use(redirectToHTTPS([/localhost:8081/, /127.0.0.1:8080/], []))
+router.use(redirectToHTTPS([/localhost:8081/, /127.0.0.1:8080/], []))
 
 router.get('/recs', function(req, res){
   const s = {
