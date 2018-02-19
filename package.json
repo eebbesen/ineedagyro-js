@@ -8,7 +8,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "mocha ./test/routes/* && node_modules/karma/bin/karma start"
+    "test": "mocha ./test/routes/*"
   },
   "keywords": [
     "gyro",
