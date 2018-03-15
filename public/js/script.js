@@ -16,9 +16,9 @@ function formatResults(json) {
 }
 
 function formatGeoInfo(loc) {
-  var str = ''
+  let str = ''
   if (loc.location.address1) {
-    var distance = loc.distance ? loc.distance : 0
+    let distance = loc.distance ? loc.distance : 0
     str += `
     <div class="address" ><span class="lefty">${loc.location.address1}</span><span class="righty">${metersToMiles(distance)} miles</span></div>
     `
@@ -34,7 +34,7 @@ function showLocations(html) {
 
 function locationError(err) {
   console.log('Error getting location', err)
-  var message = `
+  let message = `
   <div class="gyro_error">
     <h1>We cannot find your gyros because we are unable to get your location from your browser :(. Please enable location sharing.</h1>
     <p>${err.message}</p>
