@@ -34,13 +34,15 @@ describe('router', function(){
     stub.returns({
       search: function (){
         return new Promise(function(resolve) {
-          resolve({businesses: [{
-            url: 'https://fakestaurant.com/1',
-            name: 'Gyro Hero',
-            location: {
-              address1: '1600 Grand Ave'
-            }
-          }]})
+          resolve({jsonBody:
+            {businesses: [{
+              url: 'https://fakestaurant.com/1',
+              name: 'Gyro Hero',
+              location: {
+                address1: '1600 Grand Ave'
+              }
+            }]}
+          })
         })
       }
     })
@@ -61,7 +63,7 @@ describe('router', function(){
     stub.returns({
       search: function (){
         return new Promise(function(resolve) {
-          resolve({businesses: [{}]})
+          resolve({jsonBody: {businesses: [{}]}})
         })
       }
     })
@@ -79,9 +81,6 @@ describe('router', function(){
   })
 
   it ('should render privacy policy at /privacy', (done) => {
-    stub.resolves({
-      businesses: [{}]
-    })
 
     agent
       .get('/privacy')
