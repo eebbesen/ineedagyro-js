@@ -19,7 +19,7 @@ router.get('/recs', function(req, res){
 
   yelp.search(s)
     .then((results) => {
-      res.send({ locs: results.businesses })
+      res.send({ locs: results.jsonBody.businesses })
     })
     .catch((err) => {
       console.log(err)
