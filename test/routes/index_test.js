@@ -3,16 +3,16 @@ process.env.NODE_ENV = 'test'
 const chai = require('chai')
 const should = chai.should()
 const agent = require('supertest').agent(require('../../app'))
-
-const Yelp = require('node-yelp-api-v3')
+const Yelp = require('yelp-fusion')
 
 const sinon = require('sinon')
-var sandbox
+let sandbox
+let stub
 
 describe('router', function(){
   beforeEach(function(){
     sandbox = sinon.sandbox.create()
-    stub = sandbox.stub(Yelp.prototype, 'searchBusiness')
+    stub = sandbox.stub(Yelp, 'client')
   })
 
   afterEach(function(){
@@ -31,14 +31,20 @@ describe('router', function(){
   })
 
   it ('should render index at /recs with locs', (done) => {
-    stub.resolves({
-      businesses: [{
-        url: 'https://fakestaurant.com/1',
-        name: 'Gyro Hero',
-        location: {
-          address1: '1600 Grand Ave'
-        }
-      }]
+    stub.returns({
+      search: function (){
+        return new Promise(function(resolve) {
+          resolve({jsonBody:
+            {businesses: [{
+              url: 'https://fakestaurant.com/1',
+              name: 'Gyro Hero',
+              location: {
+                address1: '1600 Grand Ave'
+              }
+            }]}
+          })
+        })
+      }
     })
 
     agent
@@ -54,8 +60,12 @@ describe('router', function(){
   })
 
   it ('should render index at /recs with nothing', (done) => {
-    stub.resolves({
-      businesses: [{}]
+    stub.returns({
+      search: function (){
+        return new Promise(function(resolve) {
+          resolve({jsonBody: {businesses: [{}]}})
+        })
+      }
     })
 
     agent
@@ -71,9 +81,6 @@ describe('router', function(){
   })
 
   it ('should render privacy policy at /privacy', (done) => {
-    stub.resolves({
-      businesses: [{}]
-    })
 
     agent
       .get('/privacy')

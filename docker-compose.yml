@@ -7,6 +7,5 @@ services:
     volumes:
       - ./:/usr/src/ineedagyro
     environment:
-      - YELP_KEY
-      - YELP_SECRET
+      - YELP_API_KEY
       - LOCAL

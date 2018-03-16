@@ -2,11 +2,7 @@ const express = require('express')
 const router = express.Router()
 const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
 
-const Yelp = require('node-yelp-api-v3')
-const yelp = new Yelp({
-  consumer_key: process.env.YELP_KEY,
-  consumer_secret: process.env.YELP_SECRET
-})
+const Yelp = require('yelp-fusion')
 
 // redirect to https except when local or testing
 router.use(redirectToHTTPS([/localhost:8081/, /127.0.0.1:8080/], []))
@@ -19,9 +15,11 @@ router.get('/recs', function(req, res){
     sort_by: 'distance'
   }
 
-  yelp.searchBusiness(s)
+  const yelp = Yelp.client(process.env.YELP_API_KEY)
+
+  yelp.search(s)
     .then((results) => {
-      res.send({ locs: results.businesses })
+      res.send({ locs: results.jsonBody.businesses })
     })
     .catch((err) => {
       console.log(err)
