@@ -9,7 +9,8 @@
   "scripts": {
     "start": "node app.js",
     "test": "npm run build && mocha ./test/**/* --exit",
-    "build": "node script/remove_module_exports.js"
+    "build": "node script/remove_module_exports.js",
+    "heroku-postbuild": "echo Skip build on Heroku"
   },
   "repository": {
     "type": "git",
@@ -40,5 +41,6 @@
     "should": "^11.2.1",
     "sinon": "^2.4.1",
     "supertest": "^3.0.0"
-  }
+  },
+  "heroku-run-build-script": true
 }
