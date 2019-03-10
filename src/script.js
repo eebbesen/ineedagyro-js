@@ -69,3 +69,11 @@ function metersToMiles(meters) {
   return (meters * 0.000621371).toFixed(2)
 }
 
+module.exports = {
+  formatResults,
+  formatGeoInfo,
+  showLocations,
+  locationError,
+  populateResults,
+  metersToMiles
+}

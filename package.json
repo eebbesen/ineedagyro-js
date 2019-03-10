@@ -8,7 +8,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "mocha ./test/routes/* --exit && node_modules/karma/bin/karma start"
+    "test": "npm run build && mocha ./test/**/* --exit",
+    "build": "node script/remove_module_exports.js"
   },
   "repository": {
     "type": "git",
@@ -33,10 +34,8 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "fs": "0.0.1-security",
     "jasmine": "^2.99.0",
-    "karma": "^4.0.1",
-    "karma-chrome-launcher": "^2.2.0",
-    "karma-jasmine": "^1.1.1",
     "mocha": "^6.0.2",
     "should": "^11.2.1",
     "sinon": "^2.4.1",
