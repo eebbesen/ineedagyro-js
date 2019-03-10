@@ -60,3 +60,6 @@ then execute the request
 ```
 curl -H "Authorization: Bearer $YELP_API_KEY" https://api.yelp.com/v3/businesses/search?location=48226&term=gyro
 ```
+
+### Chrome location permissions reset
+https://support.google.com/chrome/answer/114662?co=GENIE.Platform%3DDesktop&hl=en
