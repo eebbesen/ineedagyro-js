@@ -1,3 +1,9 @@
+process.env.NODE_ENV = 'test'
+
+const chai = require('chai')
+const should = chai.should()
+const script = require('../../src/script')
+
 describe('formatResults', () => {
   describe('has records', () => {
     const json = {'locs':[
@@ -7,7 +13,7 @@ describe('formatResults', () => {
     ]}
 
     it ('retuns a string of results', () => {
-      const ret = formatResults(json)
+      const ret = script.formatResults(json)
       const expected = `
       <div class="results-header">
         <em>Results from Yelp!</em>
@@ -18,58 +24,42 @@ describe('formatResults', () => {
         <a class="button" href="https://fake.business.biz/2"><div class="outer">Russkaya Shaverma<div class="address"><span class="lefty">900 University Ave</span><span class="righty">0.06 miles</span></div></div></a>
         <a class="button" href="https://fake.business.biz/3"><div class="outer">Gyro Truck<div class="address"><span class="lefty">food truck</span><span class="righty">Could be anywhere :)</span></div></div></a>
       </div>`
-      expect(ret.replace(/\s/g,'')).toEqual(expected.replace(/\s/g,''))
+      ret.replace(/\s/g,'').should.equal(expected.replace(/\s/g,''))
     })
   })
 
   describe('has no locs', () => {
     it ('retuns an empty string', () => {
-      const ret = formatResults('{"locs":[]}')
-      expect(ret).toEqual('<div>No results found within 40 km of you -- συγνώμη!</div>')
+      const ret = script.formatResults('{"locs":[]}')
+      ret.should.equal('<div>No results found within 40 km of you -- συγνώμη!</div>')
     })
   })
 
   describe('has no json', () => {
     it ('retuns an empty string', () => {
-      const ret = formatResults('{}')
-      expect(ret).toEqual('<div>No results found within 40 km of you -- συγνώμη!</div>')
+      const ret = script.formatResults('{}')
+      ret.should.equal('<div>No results found within 40 km of you -- συγνώμη!</div>')
     })
-  })
-})
-
-describe('showLocations', () => {
-  beforeEach(() => {
-    const resultsElement = document.createElement('div')
-    resultsElement.setAttribute('id', 'results')
-    resultsElement.innerHTML = '(spinning gyro)'
-    document.body.appendChild(resultsElement)
-    expect(document.querySelector('#results').innerHTML).toEqual('(spinning gyro)')
-  })
-
-  it ('updates #results element', () => {
-    const newHtml = '<div>New div</div>'
-    showLocations(newHtml)
-    expect(document.querySelector('#results').innerHTML).toEqual(newHtml)
   })
 })
 
 describe('locationError', () => {
   it ('displays error message', () => {
-    const message = locationError({code: 2, message: 'bad things'})
+    const message = script.locationError({code: 2, message: 'bad things'})
     const expected = `
     <div class="gyro_error">
       <h1>We cannot find your gyros because we are unable to get your location from your browser :(. Please enable location sharing.</h1>
       <p>bad things</p>
       <p>error code: 2</p>
       </div>`
-    expect(message.replace(/\s/g,'')).toEqual(
+    message.replace(/\s/g,'').should.equal(
       expected.replace(/\s/g,''))
   })
 })
 
 describe('metersToMiles', () => {
   it ('converts properly', () => {
-    expect(metersToMiles(5000)).toEqual('3.11')
+    script.metersToMiles(5000).should.equal('3.11')
   })
 })
 
