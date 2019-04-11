@@ -1,7 +1,7 @@
 # ineedagyro-js
 Gyros near you!
 
-https://ineedagyro.com
+https://www.ineedagyro.com
 
 ## How?
 Uses browser's `navigation.geolocation.getCurrentPosition()` to query [Yelp's Fusion API](https://www.yelp.com/developers/documentation/v3/business_search) using [yelp-fusion](https://github.com/Yelp/yelp-fusion).
