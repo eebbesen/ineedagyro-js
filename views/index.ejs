@@ -23,9 +23,15 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.11.4/paper-full.min.js"></script>
   <script type="text/paperscript" canvas="gyroCanvas">
     var raster = new Raster({ source: "/images/icecream_johnny_cutout_800.png", position: view.center })
-    raster.scale(0.5)
+    raster.scale(0.75)
     function onFrame(event) {
       raster.rotate(2)
+    }
+    var raster2 = new Raster({ source: "/images/burger_johnny_cutout_500.png", position: view.center })
+    raster2.scale(.5)
+    function onFrame(event) {
+      raster.rotate(2)
+      raster2.rotate(-1)
     }
   </script>
 </body>
