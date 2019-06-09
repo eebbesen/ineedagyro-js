@@ -9,7 +9,7 @@ router.use(redirectToHTTPS([/localhost:8081/, /127.0.0.1:8080/], []))
 
 router.get('/recs', function(req, res){
   const s = {
-    term: 'gyro',
+    term: 'ice cream',
     latitude: req.query.lat,
     longitude: req.query.lng,
     sort_by: 'distance'
