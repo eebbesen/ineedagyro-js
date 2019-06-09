@@ -57,3 +57,9 @@ a:hover {
   width: 50%;
   padding-right: 1.3em;
 }
+
+body {
+  background-image: url("../images/background_johnny.jpg");
+  background-size: 1000px;
+  background-repeat: no-repeat;
+}
