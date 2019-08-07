@@ -9,7 +9,7 @@ describe('formatResults', () => {
     const json = {'locs':[
       {'url':'https://fake.business.biz/1','name':'Hero Ice Cream','location':{'address1':'1600 Grand Ave'},'distance':1003.12},
       {'url':'https://fake.business.biz/2','name':'Russkoye Morozhenoe','location':{'address1':'900 University Ave'},'distance':88.67},
-      {'url':'https://fake.business.biz/3','name':'Gyro Truck','location':{'address1':''},'distance':''}
+      {'url':'https://fake.business.biz/3','name':'Ice Cream Truck','location':{'address1':''},'distance':''}
     ]}
 
     it ('retuns a string of results', () => {
@@ -22,7 +22,7 @@ describe('formatResults', () => {
       <div class="container">
         <a class="button" href="https://fake.business.biz/1"><div class="outer">Hero Ice Cream<div class="address"><span class="lefty">1600 Grand Ave</span><span class="righty">0.62 miles</span></div></div></a>
         <a class="button" href="https://fake.business.biz/2"><div class="outer">Russkoye Morozhenoe<div class="address"><span class="lefty">900 University Ave</span><span class="righty">0.06 miles</span></div></div></a>
-        <a class="button" href="https://fake.business.biz/3"><div class="outer">Gyro Truck<div class="address"><span class="lefty">food truck</span><span class="righty">Could be anywhere :)</span></div></div></a>
+        <a class="button" href="https://fake.business.biz/3"><div class="outer">Ice Cream Truck<div class="address"><span class="lefty">food truck</span><span class="righty">Could be anywhere :)</span></div></div></a>
       </div>`
       ret.replace(/\s/g,'').should.equal(expected.replace(/\s/g,''))
     })
