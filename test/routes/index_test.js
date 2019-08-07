@@ -24,7 +24,8 @@ describe('router', function(){
       .get('/')
       .end(function(err, res) {
         res.status.should.equal(200)
-        res.text.should.contain('open_gyro_outline_500.jpeg')
+        res.text.should.contain('icecream_johnny_cutout_500.png')
+        res.text.should.contain('burger_johnny_cutout_500.png')
 
         done()
       })

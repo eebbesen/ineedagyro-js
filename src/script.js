@@ -12,7 +12,7 @@ function formatResults(json) {
     return header + recs
   }
 
-  return '<div>No results found within 40 km of you -- συγνώμη!</div>'
+  return '<div>No results found within 40 km of you -- sorry!</div>'
 }
 
 function formatGeoInfo(loc) {
@@ -36,7 +36,7 @@ function locationError(err) {
   console.log('Error getting location', err)
   let message = `
   <div class="gyro_error">
-    <h1>We cannot find your gyros because we are unable to get your location from your browser :(. Please enable location sharing.</h1>
+    <h1>We cannot find your ice cream because we are unable to get your location from your browser :(. Please enable location sharing.</h1>
     <p>${err.message}</p>
   `
   if(err.code) {
