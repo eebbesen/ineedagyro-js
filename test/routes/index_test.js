@@ -11,7 +11,7 @@ let stub
 
 describe('router', function(){
   beforeEach(function(){
-    sandbox = sinon.sandbox.create()
+    sandbox = sinon.createSandbox()
     stub = sandbox.stub(Yelp, 'client')
   })
 
