@@ -1,10 +1,10 @@
 {
   "name": "ineedagyro",
   "engines": {
-    "node": "12.18.2",
-    "npm": "6.14.6"
+    "node": "14.18.0",
+    "npm": "8.19.2"
   },
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Unless you're eating one right now, you probably need a gyro",
   "main": "app.js",
   "scripts": {
@@ -24,25 +24,25 @@
   "author": "eebbesen",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "ejs": "^2.7.4",
-    "express": "^4.17.1",
-    "express-http-to-https": "^1.1.4",
-    "express-session": "^1.17.2",
-    "merge-descriptors": "^1.0.1",
-    "npm": "^6.14.15",
-    "request": "^2.88.2",
-    "yelp-fusion": "^3.0.0"
+    "body-parser": "latest",
+    "ejs": "latest",
+    "express": "latest",
+    "express-http-to-https": "latest",
+    "express-session": "latest",
+    "merge-descriptors": "latest",
+    "npm": ">=8.19.2",
+    "request": "latest",
+    "yelp-fusion": "latest"
   },
   "devDependencies": {
-    "chai": "^4.3.4",
-    "extend": "^3.0.2",
-    "fs": "0.0.2",
-    "jasmine": "^3.9.0",
-    "mocha": "^6.2.3",
-    "should": "^13.2.3",
-    "sinon": "^7.5.0",
-    "supertest": "^4.0.2"
+    "chai": "latest",
+    "extend": "latest",
+    "fs": "latest",
+    "jasmine": "latest",
+    "mocha": "latest",
+    "should": "latest",
+    "sinon": "latest",
+    "supertest": "latest"
   },
   "heroku-run-build-script": true
 }
