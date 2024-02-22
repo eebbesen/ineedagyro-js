@@ -5,7 +5,7 @@ const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
 const Yelp = require('yelp-fusion')
 
 // redirect to https except when local or testing
-router.use(redirectToHTTPS([/localhost:8081/, /127.0.0.1:8080/], []))
+router.use(redirectToHTTPS([/localhost:8080/, /127.0.0.1:8080/], []))
 
 router.get('/recs', function(req, res){
   const s = {
