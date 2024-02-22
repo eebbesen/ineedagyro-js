@@ -1,7 +1,6 @@
 process.env.NODE_ENV = 'test'
 
-const chai = require('chai')
-const should = chai.should()
+const should = require('chai').should();
 const script = require('../../src/script')
 
 describe('formatResults', () => {

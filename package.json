@@ -1,8 +1,8 @@
 {
   "name": "ineedagyro",
   "engines": {
-    "node": "14.18.0",
-    "npm": "8.19.2"
+    "node": "18.18.0",
+    "npm": "9.8.1"
   },
   "version": "1.2.1",
   "description": "Unless you're eating one right now, you probably need a gyro",
@@ -30,7 +30,7 @@
     "express-http-to-https": "latest",
     "express-session": "latest",
     "merge-descriptors": "latest",
-    "npm": ">=8.19.2",
+    "npm": ">=9.8.1",
     "request": "latest",
     "yelp-fusion": "latest"
   },
