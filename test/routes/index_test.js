@@ -1,11 +1,12 @@
 process.env.NODE_ENV = 'test'
 
-const chai = require('chai')
-const should = chai.should()
-const agent = require('supertest').agent(require('../../app'))
-const Yelp = require('yelp-fusion')
+import { expect }  from 'chai'
+import supertest from 'supertest'
+import app from '../../app.js'
+import Yelp from 'yelp-fusion'
+const agent = supertest(app)
 
-const sinon = require('sinon')
+import sinon from 'sinon'
 let sandbox
 let stub
 
@@ -23,8 +24,8 @@ describe('router', function(){
     agent
       .get('/')
       .end(function(err, res) {
-        res.status.should.equal(200)
-        res.text.should.contain('open_gyro_outline_500.jpeg')
+        expect(res.status).to.equal(200)
+        expect(res.text).to.contain('open_gyro_outline_500.jpeg')
 
         done()
       })
@@ -51,9 +52,9 @@ describe('router', function(){
       .get('/recs')
       .query({lat: 44, lng: 93})
       .end(function(err, res) {
-        res.status.should.equal(200)
-        res.text.should.contain('Hero')
-        stub.called.should.equal(true)
+        expect(res.status).to.equal(200)
+        expect(res.text).to.contain('Hero')
+        expect(stub.called).to.equal(true)
 
         done()
       })
@@ -72,9 +73,9 @@ describe('router', function(){
       .get('/recs')
       .query({lat: 44, lng: 93})
       .end(function(err, res) {
-        res.status.should.equal(200)
-        res.text.should.equal('{"locs":[{}]}')
-        stub.called.should.equal(true)
+        expect(res.status).to.equal(200)
+        expect(res.text).to.equal('{"locs":[{}]}')
+        expect(stub.called).to.equal(true)
 
         done()
       })
@@ -85,8 +86,8 @@ describe('router', function(){
     agent
       .get('/privacy')
       .end(function(err, res) {
-        res.status.should.equal(200)
-        res.text.should.contain('this gyro service')
+        expect(res.status).to.equal(200)
+        expect(res.text).to.contain('this gyro service')
 
         done()
       })

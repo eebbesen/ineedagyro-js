@@ -1,4 +1,4 @@
-const fs = require('fs')
+import fs from 'fs'
 
 // `file` is relative to project root directory
 function dropExports(file, toFile) {

@@ -1,4 +1,4 @@
-function formatResults(json) {
+export function formatResults(json) {
   if (json.locs && json.locs.length > 0) {
     const header = `
     <div class="results-header">
@@ -15,7 +15,7 @@ function formatResults(json) {
   return '<div>No results found within 40 km of you -- συγνώμη!</div>'
 }
 
-function formatGeoInfo(loc) {
+export function formatGeoInfo(loc) {
   let str = ''
   if (loc.location.address1) {
     let distance = loc.distance ? loc.distance : 0
@@ -28,11 +28,11 @@ function formatGeoInfo(loc) {
   return str
 }
 
-function showLocations(html) {
+export function showLocations(html) {
   document.querySelector('#results').innerHTML = html
 }
 
-function locationError(err) {
+export function locationError(err) {
   console.log('Error getting location', err)
   let message = `
   <div class="gyro_error">
@@ -46,7 +46,7 @@ function locationError(err) {
   return `${message}</div>`
 }
 
-function populateResults(c) {
+export function populateResults(c) {
   navigator.geolocation.getCurrentPosition(
     function(location) {
       const xhr = new XMLHttpRequest()
@@ -65,15 +65,10 @@ function populateResults(c) {
   )
 }
 
-function metersToMiles(meters) {
+export function metersToMiles(meters) {
   return (meters * 0.000621371).toFixed(2)
 }
 
-module.exports = {
-  formatResults,
-  formatGeoInfo,
-  showLocations,
-  locationError,
-  populateResults,
-  metersToMiles
-}
+window.addEventListener('load', () => {
+  populateResults()
+});
