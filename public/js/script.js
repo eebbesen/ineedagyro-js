@@ -69,6 +69,8 @@ export function metersToMiles(meters) {
   return (meters * 0.000621371).toFixed(2)
 }
 
-window.addEventListener('load', () => {
-  populateResults()
-});
+if (typeof window !== 'undefined') {
+  window.addEventListener('load', () => {
+    populateResults()
+  });
+}
