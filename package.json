@@ -13,7 +13,8 @@
     "heroku-postbuild": "echo Skip build on Heroku",
     "prettier": "prettier --write .",
     "start": "node app.js",
-    "test": "npm run build && mocha ./test/**/* --exit"
+    "test": "npm run build && c8 mocha ./test/**/* --exit",
+    "test_report": "npm run build && c8 mocha ./test/**/* --exit --reporter mochawesome"
   },
   "repository": {
     "type": "git",
@@ -37,11 +38,13 @@
     "yelp-fusion": "latest"
   },
   "devDependencies": {
+    "c8": "^10.1.2",
     "chai": "latest",
     "extend": "latest",
     "fs": "latest",
     "jasmine": "latest",
     "mocha": "latest",
+    "mochawesome": "^7.1.3",
     "prettier": "^3.3.3",
     "should": "latest",
     "sinon": "latest",
