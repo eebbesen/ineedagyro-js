@@ -9,7 +9,7 @@
   "description": "Unless you're eating one right now, you probably need a gyro",
   "main": "app.js",
   "scripts": {
-    "build": "node script/remove_module_exports.js",
+    "build": "node script/copy_js_to_public_js.js",
     "heroku-postbuild": "echo Skip build on Heroku",
     "start": "node app.js",
     "test": "npm run build && mocha ./test/**/* --exit"
