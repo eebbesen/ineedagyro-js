@@ -1,11 +1,10 @@
-const express = require('express')
+import express from 'express'
 const router = express.Router()
-const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
-
-const Yelp = require('yelp-fusion')
+import { redirectToHTTPS } from 'express-http-to-https'
+import Yelp from 'yelp-fusion'
 
 // redirect to https except when local or testing
-router.use(redirectToHTTPS([/localhost:8081/, /127.0.0.1:8080/], []))
+router.use(redirectToHTTPS([/localhost:8080/, /127.0.0.1:8080/], []))
 
 router.get('/recs', function(req, res){
   const s = {
@@ -15,8 +14,10 @@ router.get('/recs', function(req, res){
     sort_by: 'distance'
   }
 
-  const yelp = Yelp.client(process.env.YELP_API_KEY)
+  console.log('lat', req.query.lat)
+  console.log('long', req.query.lng)
 
+  const yelp = Yelp.client(process.env.YELP_API_KEY)
   yelp.search(s)
     .then((results) => {
       res.send({ locs: results.jsonBody.businesses })
@@ -34,4 +35,4 @@ router.get('/privacy', function(req, res){
   res.render('privacy_policy')
 })
 
-module.exports = router
+export default router

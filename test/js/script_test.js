@@ -1,8 +1,7 @@
 process.env.NODE_ENV = 'test'
 
-const chai = require('chai')
-const should = chai.should()
-const script = require('../../src/script')
+import { expect }  from 'chai'
+import * as script from '../../src/script.js'
 
 describe('formatResults', () => {
   describe('has records', () => {
@@ -24,21 +23,21 @@ describe('formatResults', () => {
         <a class="button" href="https://fake.business.biz/2"><div class="outer">Russkaya Shaverma<div class="address"><span class="lefty">900 University Ave</span><span class="righty">0.06 miles</span></div></div></a>
         <a class="button" href="https://fake.business.biz/3"><div class="outer">Gyro Truck<div class="address"><span class="lefty">food truck</span><span class="righty">Could be anywhere :)</span></div></div></a>
       </div>`
-      ret.replace(/\s/g,'').should.equal(expected.replace(/\s/g,''))
+      expect(ret.replace(/\s/g,'')).to.equal(expected.replace(/\s/g,''))
     })
   })
 
   describe('has no locs', () => {
     it ('retuns an empty string', () => {
       const ret = script.formatResults('{"locs":[]}')
-      ret.should.equal('<div>No results found within 40 km of you -- συγνώμη!</div>')
+      expect(ret).to.equal('<div>No results found within 40 km of you -- συγνώμη!</div>')
     })
   })
 
   describe('has no json', () => {
     it ('retuns an empty string', () => {
       const ret = script.formatResults('{}')
-      ret.should.equal('<div>No results found within 40 km of you -- συγνώμη!</div>')
+      expect(ret).to.equal('<div>No results found within 40 km of you -- συγνώμη!</div>')
     })
   })
 })
@@ -52,14 +51,14 @@ describe('locationError', () => {
       <p>bad things</p>
       <p>error code: 2</p>
       </div>`
-    message.replace(/\s/g,'').should.equal(
+    expect(message.replace(/\s/g,'')).to.equal(
       expected.replace(/\s/g,''))
   })
 })
 
 describe('metersToMiles', () => {
   it ('converts properly', () => {
-    script.metersToMiles(5000).should.equal('3.11')
+    expect(script.metersToMiles(5000)).to.equal('3.11')
   })
 })
 
