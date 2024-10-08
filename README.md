@@ -24,19 +24,19 @@ npm start
 #### Build
 To ensure you're not using an out-of-date image
 ```bash
-docker-compose build
+docker compose build
 ```
 
 #### Run
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 Then browse to http://localhost:8080/
 
 #### Other options
 If you want to view logs, omit `-d` from the previous command _or_
 ```bash
-docker-compose logs -f
+docker compose logs -f
 ```
 
 ## Test
