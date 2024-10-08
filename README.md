@@ -58,9 +58,11 @@ Make sure karma-chrome-launcher is installed. This may cause problems with CI.
 ```bash
 npm install karma-chrome-launcher --save-dev --link
 ```
+
 ```bash
 Run tests
 ```
+
 ```bash
 npm test
 ```
