@@ -15,7 +15,7 @@ router.get('/recs', function(req, res){
   }
 
   console.log('lat', req.query.lat)
-  console.log('long', req.query.long)
+  console.log('long', req.query.lng)
 
   const yelp = Yelp.client(process.env.YELP_API_KEY)
   yelp.search(s)
