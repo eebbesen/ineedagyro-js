@@ -51,7 +51,7 @@ export function populateResults() {
         const json = JSON.parse(xhr.response);
         const html = formatResults(json);
 
-        return document.querySelector('#results').innerHTML = html;
+        return (document.querySelector('#results').innerHTML = html);
       };
       xhr.open(
         'GET',
@@ -64,7 +64,8 @@ export function populateResults() {
       xhr.send();
     },
     function (err) {
-      return document.querySelector('#results').innerHTML = locationError(err);
+      return (document.querySelector('#results').innerHTML =
+        locationError(err));
     },
   );
 }
