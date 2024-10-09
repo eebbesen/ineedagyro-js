@@ -29,10 +29,6 @@ export function formatGeoInfo(loc) {
   return str;
 }
 
-export function showLocations(html) {
-  document.querySelector('#results').innerHTML = html;
-}
-
 export function locationError(err) {
   console.log('Error getting location', err);
   let message = `
@@ -47,7 +43,7 @@ export function locationError(err) {
   return `${message}</div>`;
 }
 
-export function populateResults(c) {
+export function populateResults() {
   navigator.geolocation.getCurrentPosition(
     function (location) {
       const xhr = new XMLHttpRequest();
@@ -55,7 +51,7 @@ export function populateResults(c) {
         const json = JSON.parse(xhr.response);
         const html = formatResults(json);
 
-        return showLocations(html);
+        return document.querySelector('#results').innerHTML = html;
       };
       xhr.open(
         'GET',
@@ -68,7 +64,7 @@ export function populateResults(c) {
       xhr.send();
     },
     function (err) {
-      return showLocations(locationError(err));
+      return document.querySelector('#results').innerHTML = locationError(err);
     },
   );
 }
