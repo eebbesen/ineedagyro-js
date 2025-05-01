@@ -60,14 +60,26 @@ npm install karma-chrome-launcher --save-dev --link
 ```
 
 ```bash
-Run tests
-```
-
-```bash
 npm test
 ```
 
-will run mocha for the server-side JavaScript and karma for the client-side tests
+will run mocha for the server-side JavaScript and karma for the client-side tests.
+
+To generate tests with human-readable test result report run
+
+```bash
+npm run test_report
+```
+
+and open mochawesome-report/mochawesome.html.
+
+To generate tests with human-readable test coverage result report run
+
+```bash
+npm run test_coverage_html
+```
+
+and open coverage/index.html.
 
 ## Helpy things
 

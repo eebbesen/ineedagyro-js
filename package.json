@@ -14,7 +14,8 @@
     "prettier": "prettier --write .",
     "start": "node app.js",
     "test": "npm run build && c8 mocha ./test/**/* --exit",
-    "test_report": "npm run build && c8 mocha ./test/**/* --exit --reporter mochawesome"
+    "test_report": "npm run build && c8 mocha ./test/**/* --exit --reporter mochawesome",
+    "test_coverage_html": "npm run build && c8 report --reporter=html --reporter=text mocha ./test/**/* --exit"
   },
   "repository": {
     "type": "git",
