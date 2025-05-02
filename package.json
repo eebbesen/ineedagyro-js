@@ -4,7 +4,7 @@
     "node": "22.x",
     "npm": ">=10.9.0"
   },
-  "version": "3.3.0",
+  "version": "3.4.0",
   "type": "module",
   "description": "Unless you're eating one right now, you probably need a gyro",
   "main": "app.js",
@@ -13,7 +13,7 @@
     "heroku-postbuild": "echo Skip build on Heroku",
     "prettier": "prettier --write .",
     "start": "node app.js",
-    "test": "npm run build && c8 mocha ./test/**/* --exit",
+    "test": "npm run build && c8 mocha ./test/**/* --exit --reporter spec",
     "test_report": "npm run build && c8 mocha ./test/**/* --exit --reporter mochawesome",
     "test_coverage_html": "npm run build && c8 report --reporter=html --reporter=text mocha ./test/**/* --exit"
   },
