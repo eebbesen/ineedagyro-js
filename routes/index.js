@@ -6,16 +6,21 @@ import Yelp from 'yelp-fusion';
 // redirect to https except when local or testing
 router.use(redirectToHTTPS([/localhost:8080/, /127.0.0.1:8080/], []));
 
-router.get('/recs', function (req, res) {
-  const s = {
-    term: 'gyro',
+function buildRequest(req) {
+  console.log('lat', req.query.lat);
+  console.log('long', req.query.lng);
+  console.log('term', req.query.term);
+
+  return {
+    term: req.query.term ?? 'gyro',
     latitude: req.query.lat,
     longitude: req.query.lng,
     sort_by: 'distance',
   };
+}
 
-  console.log('lat', req.query.lat);
-  console.log('long', req.query.lng);
+router.get('/recs', function (req, res) {
+  const s = buildRequest(req);
 
   const yelp = Yelp.client(process.env.YELP_API_KEY);
   yelp
@@ -37,3 +42,4 @@ router.get('/privacy', function (req, res) {
 });
 
 export default router;
+export { buildRequest };

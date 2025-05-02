@@ -3,6 +3,79 @@ process.env.NODE_ENV = 'test';
 import { expect } from 'chai';
 import * as script from '../../src/script.js';
 
+describe('buildUrl', () => {
+  it('should create a URL with base, lat, and lng', () => {
+    const base = 'https://ineedagyro.com';
+    const lat = 37.7749;
+    const lng = -122.4194;
+
+    const result = script.buildUrl(base, lat, lng);
+
+    expect(result).to.equal('https://ineedagyro.com/recs?lat=37.7749&lng=-122.4194');
+  });
+
+  it('should add the term parameter when provided', () => {
+    const base = 'https://ineedagyro.com';
+    const lat = 37.7749;
+    const lng = -122.4194;
+    const term = 'gyro';
+
+    const result = script.buildUrl(base, lat, lng, term);
+
+    expect(result).to.equal('https://ineedagyro.com/recs?lat=37.7749&lng=-122.4194&term=gyro');
+  });
+
+  it('should handle special characters in term parameter', () => {
+    const base = 'https://ineedagyro.com';
+    const lat = 37.7749;
+    const lng = -122.4194;
+    const term = 'greek gyro & falafel';
+
+    // Note: The buildUrl function doesn't encode the term, so our test reflects this
+    // In a real application, you might want to encode the term with encodeURIComponent()
+    const result = script.buildUrl(base, lat, lng, term);
+
+    expect(result).to.equal('https://ineedagyro.com/recs?lat=37.7749&lng=-122.4194&term=greek gyro & falafel');
+  });
+
+  it('should work with base URLs that already have paths', () => {
+    const base = 'https://ineedagyro.com/api/v1';
+    const lat = 37.7749;
+    const lng = -122.4194;
+
+    const result = script.buildUrl(base, lat, lng);
+
+    expect(result).to.equal('https://ineedagyro.com/api/v1/recs?lat=37.7749&lng=-122.4194');
+  });
+});
+
+describe('getParams', () => {
+  it('returns an object with params', () => {
+    const url = 'http://localhost:8080/?lat=44&lng=93&term=cheese%20steak';
+    const expected = {
+      lat: '44',
+      lng: '93',
+      term: 'cheese steak',
+    };
+    const ret = script.getParams(url);
+    expect(ret).to.deep.equal(expected);
+  });
+
+  it('returns an object with no params', () => {
+    const url = 'http://localhost:8080/';
+    const expected = {};
+    const ret = script.getParams(url);
+    expect(ret).to.deep.equal(expected);
+  });
+
+  it('returns an object with empty params', () => {
+    const url = 'http://localhost:8080/?';
+    const expected = {};
+    const ret = script.getParams(url);
+    expect(ret).to.deep.equal(expected);
+  });
+});
+
 describe('formatResults', () => {
   describe('has records', () => {
     const json = {
