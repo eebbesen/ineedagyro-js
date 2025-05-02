@@ -4,13 +4,26 @@ import { expect } from 'chai';
 import supertest from 'supertest';
 import app from '../../app.js';
 import Yelp from 'yelp-fusion';
-import { buildRequest } from '../../routes/index.js';
+import { buildRequest, gitSha } from '../../routes/index.js';
 
 const agent = supertest(app);
 
 import sinon from 'sinon';
 let sandbox;
 let stub;
+
+describe('gitSha', function () {
+  it('should return SOURCE_VERSION', () => {
+    process.env.SOURCE_VERSION = '1234567890abcdef1234567890abcdef12345678';
+    const result = gitSha();
+    expect(result).to.equal('1234567890abcdef1234567890abcdef12345678');
+  });
+
+  it('should return sha from exec', () => {
+    const result = gitSha();
+    expect(result).to.match(/^[0-9a-f]{40}$/);
+  });
+});
 
 describe('buldRequest', function () {
   it('should build a request with lat and lng', () => {
@@ -56,6 +69,17 @@ describe('router', function () {
 
   afterEach(function () {
     sandbox.restore();
+  });
+
+  it('should render version at /version', (done) => {
+    process.env.SOURCE_VERSION = '1234567890abcdef1234567890abcdef12345678';
+
+    agent.get('/version').end(function (err, res) {
+      expect(res.status).to.equal(200);
+      expect(res.text).to.equal('{"version":"1234567890abcdef1234567890abcdef12345678"}');
+
+      done();
+    });
   });
 
   it('should render index at /', (done) => {
