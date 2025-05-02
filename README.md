@@ -87,7 +87,7 @@ and open coverage/index.html.
 
 ### cURL
 
-#### Call with token
+#### Call Yelp endpoint directly with token
 
 Export the Yelp token you received (see above)
 `export YELP_API_KEY=<see_get_token_section>`
