@@ -85,18 +85,28 @@ describe('formatResults', () => {
           name: 'Hero Gyros',
           location: { address1: '1600 Grand Ave' },
           distance: 1003.12,
+          is_closed: false,
         },
         {
           url: 'https://fake.business.biz/2',
           name: 'Russkaya Shaverma',
           location: { address1: '900 University Ave' },
           distance: 88.67,
+          is_closed: false,
         },
         {
           url: 'https://fake.business.biz/3',
           name: 'Gyro Truck',
           location: { address1: '' },
           distance: '',
+          is_closed: false,
+        },
+        {
+          url: 'https://fake.business.biz/4',
+          name: 'Gyronimus Bosch',
+          location: { address1: 'Allianz Bank Center' },
+          distance: '93.2',
+          is_closed: true,
         },
       ],
     };

@@ -7,7 +7,10 @@ export function formatResults(json) {
 
     const recs = `
     <div class="container">
-      ${json.locs.map((loc) => `<a class="button" href="${loc.url}"><div class="outer">${loc.name} ${formatGeoInfo(loc)}</div></a>`).join('')}
+      ${json.locs
+        .filter(loc => !loc.is_closed)
+        .map((loc) => `<a class="button" href="${loc.url}"><div class="outer">${loc.name} ${formatGeoInfo(loc)}</div></a>`)
+        .join('')}
     </div>`;
     return header + recs;
   }
