@@ -43,7 +43,38 @@ export function locationError(err) {
   return `${message}</div>`;
 }
 
+const ALLOWED_PARAMS = ['lat', 'lng', 'term'];
+
+export function getParams(url) {
+  const params = {};
+  const parser = new URL(url);
+  const query = parser.search.substring(1);
+
+  if (query.length > 0) {
+    const vars = query.split('&');
+    for (const varPair of vars) {
+      const pair = varPair.split('=');
+      if (ALLOWED_PARAMS.includes(pair[0])) {
+        params[pair[0]] = decodeURIComponent(pair[1]);
+      }
+    }
+  }
+
+  return params;
+}
+
+export function buildUrl(base, lat, lng, term) {
+  let url = base + '/recs?lat=' + lat + '&lng=' + lng;
+  if (term) {
+    url += '&term=' + term;
+  }
+
+  return url;
+}
+
 export function populateResults() {
+  const params = getParams(window.location.href);
+
   navigator.geolocation.getCurrentPosition(
     function (location) {
       const xhr = new XMLHttpRequest();
@@ -55,11 +86,10 @@ export function populateResults() {
       };
       xhr.open(
         'GET',
-        window.location +
-          'recs?lat=' +
-          location.coords.latitude +
-          '&lng=' +
+        buildUrl(window.location.origin,
+          location.coords.latitude,
           location.coords.longitude,
+          params.term),
       );
       xhr.send();
     },

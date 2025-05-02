@@ -4,11 +4,49 @@ import { expect } from 'chai';
 import supertest from 'supertest';
 import app from '../../app.js';
 import Yelp from 'yelp-fusion';
+import { buildRequest } from '../../routes/index.js';
+
 const agent = supertest(app);
 
 import sinon from 'sinon';
 let sandbox;
 let stub;
+
+describe('buldRequest', function () {
+  it('should build a request with lat and lng', () => {
+    const req = {
+      query: {
+        lat: 44,
+        lng: 93,
+      },
+    };
+    const result = buildRequest(req);
+    expect(result).to.deep.equal({
+      term: 'gyro',
+      latitude: 44,
+      longitude: 93,
+      sort_by: 'distance',
+    });
+  });
+
+  it('should build a request with passed-in term', () => {
+    const req = {
+      query: {
+        lat: 44,
+        lng: 93,
+        term: 'cheese steak',
+      },
+    };
+
+    const result = buildRequest(req);
+    expect(result).to.deep.equal({
+      term: 'cheese steak',
+      latitude: 44,
+      longitude: 93,
+      sort_by: 'distance',
+    });
+  });
+});
 
 describe('router', function () {
   beforeEach(function () {

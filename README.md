@@ -4,6 +4,8 @@ Gyros near you!
 
 https://www.ineedagyro.com
 
+For other foods, add a `term` parameter e.g., https://ineedagyro.com/?term=cheese%20steak
+
 ## How?
 
 Uses browser's `navigation.geolocation.getCurrentPosition()` to query [Yelp's Fusion API](https://www.yelp.com/developers/documentation/v3/business_search) using [yelp-fusion](https://github.com/Yelp/yelp-fusion).
@@ -41,7 +43,7 @@ docker compose build
 docker compose up -d
 ```
 
-Then browse to http://localhost:8080/
+Then browse to http://localhost:8080/.
 
 #### Other options
 
