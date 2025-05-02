@@ -5,6 +5,7 @@ import supertest from 'supertest';
 import app from '../../app.js';
 import Yelp from 'yelp-fusion';
 import { buildRequest, gitSha } from '../../routes/index.js';
+import childProcess from 'child_process';
 
 const agent = supertest(app);
 
@@ -13,15 +14,24 @@ let sandbox;
 let stub;
 
 describe('gitSha', function () {
-  it('should return SOURCE_VERSION', () => {
-    process.env.SOURCE_VERSION = '1234567890abcdef1234567890abcdef12345678';
-    const result = gitSha();
-    expect(result).to.equal('1234567890abcdef1234567890abcdef12345678');
+  beforeEach(function () {
+    process.env.HEROKU_SLUG_COMMIT = undefined;
   });
 
-  it('should return sha from exec', () => {
+  it('should return HEROKU_SLUG_COMMIT', (done) => {
+    process.env.HEROKU_SLUG_COMMIT = '1234567890abcdef1234567890abcdef12345678';
+    const result = gitSha();
+    expect(result).to.equal('1234567890abcdef1234567890abcdef12345678');
+
+    done();
+  });
+
+  it('should return sha from exec', (done) => {
     const result = gitSha();
     expect(result).to.match(/^[0-9a-f]{40}$/);
+    expect(result).not.to.equal('1234567890abcdef1234567890abcdef12345678');
+
+    done();
   });
 });
 
@@ -72,7 +82,7 @@ describe('router', function () {
   });
 
   it('should render version at /version', (done) => {
-    process.env.SOURCE_VERSION = '1234567890abcdef1234567890abcdef12345678';
+    process.env.HEROKU_SLUG_COMMIT = '1234567890abcdef1234567890abcdef12345678';
 
     agent.get('/version').end(function (err, res) {
       expect(res.status).to.equal(200);

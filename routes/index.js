@@ -20,9 +20,18 @@ function buildRequest(req) {
   };
 }
 
-// SOURCE_VERSION is exposed on Heroku
+// HEROKU_SLUG_COMMIT is exposed on Heroku
 function gitSha() {
-  return process.env.SOURCE_VERSION || execSync('git rev-parse HEAD').toString().trim();;
+  let sha = ''
+  try {
+    sha = process?.env?.HEROKU_SLUG_COMMIT === 'undefined' ?
+      execSync('git rev-parse HEAD')?.toString()?.trim() :
+      process?.env?.HEROKU_SLUG_COMMIT;
+  } catch (e) {
+    console.log('error getting sha', e);
+  }
+
+  return sha === 'undefined' ? 'error getting sha' : sha;
 }
 
 router.get('/version', function (req, res) {
