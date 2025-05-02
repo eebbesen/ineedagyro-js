@@ -20,13 +20,13 @@ function buildRequest(req) {
   };
 }
 
-// HEROKU_SLUG_COMMIT is exposed on Heroku
+// HEROKU_BUILD_COMMIT is exposed on Heroku
 function gitSha() {
   let sha = ''
   try {
-    sha = process?.env?.HEROKU_SLUG_COMMIT === 'undefined' ?
+    sha = process?.env?.HEROKU_BUILD_COMMIT === 'undefined' ?
       execSync('git rev-parse HEAD')?.toString()?.trim() :
-      process?.env?.HEROKU_SLUG_COMMIT;
+      process?.env?.HEROKU_BUILD_COMMIT;
   } catch (e) {
     console.log('error getting sha', e);
   }
