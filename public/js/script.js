@@ -74,27 +74,30 @@ export function buildUrl(base, lat, lng, term) {
   return url;
 }
 
-export function populateResults() {
+export function locationSuccess(location) {
   const params = getParams(window.location.href);
+  return function () {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+      const json = JSON.parse(xhr.response);
+      const html = formatResults(json);
 
+      return (document.querySelector('#results').innerHTML = html);
+    };
+    xhr.open(
+      'GET',
+      buildUrl(window.location.origin,
+        location.coords.latitude,
+        location.coords.longitude,
+        params.term),
+    );
+    xhr.send();
+  };
+}
+
+export function populateResults() {
   navigator.geolocation.getCurrentPosition(
-    function (location) {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function () {
-        const json = JSON.parse(xhr.response);
-        const html = formatResults(json);
-
-        return (document.querySelector('#results').innerHTML = html);
-      };
-      xhr.open(
-        'GET',
-        buildUrl(window.location.origin,
-          location.coords.latitude,
-          location.coords.longitude,
-          params.term),
-      );
-      xhr.send();
-    },
+    locationSuccess(location),
     function (err) {
       return (document.querySelector('#results').innerHTML =
         locationError(err));
