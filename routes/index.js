@@ -2,6 +2,7 @@ import express from 'express';
 const router = express.Router();
 import { redirectToHTTPS } from 'express-http-to-https';
 import Yelp from 'yelp-fusion';
+import { execSync } from 'child_process';
 
 // redirect to https except when local or testing
 router.use(redirectToHTTPS([/localhost:8080/, /127.0.0.1:8080/], []));
@@ -18,6 +19,15 @@ function buildRequest(req) {
     sort_by: 'distance',
   };
 }
+
+// SOURCE_VERSION is exposed on Heroku
+function gitSha() {
+  return process.env.SOURCE_VERSION || execSync('git rev-parse HEAD').toString().trim();;
+}
+
+router.get('/version', function (req, res) {
+  res.send({ version: gitSha() });
+});
 
 router.get('/recs', function (req, res) {
   const s = buildRequest(req);
@@ -42,4 +52,4 @@ router.get('/privacy', function (req, res) {
 });
 
 export default router;
-export { buildRequest };
+export { buildRequest, gitSha };
