@@ -3,6 +3,43 @@ process.env.NODE_ENV = 'test';
 import { expect } from 'chai';
 import * as script from '../../src/script.js';
 
+describe('formatGeoInfo', () => {
+  it('should format the location info correctly when address1', () => {
+    const expected = '<div class="address" ><span class="lefty">1600 Grand Ave</span><span class="righty">0.62 miles</span></div>';
+    const loc = {
+      location: { address1: '1600 Grand Ave' },
+      distance: 1003.12,
+    };
+
+    const result = script.formatGeoInfo(loc);
+
+    expect(result).to.equal(expected);
+  });
+
+  it('should format the location info correctly when no distance', () => {
+    const expected = '<div class="address" ><span class="lefty">1600 Grand Ave</span><span class="righty">0.00 miles</span></div>';
+    const loc = {
+      location: { address1: '1600 Grand Ave' },
+    };
+
+    const result = script.formatGeoInfo(loc);
+
+    expect(result).to.equal(expected);
+  });
+
+  it('should format the location info correctly when no address1', () => {
+    const expected = '<div class="address" ><span class="lefty">food truck</span><span class="righty">Could be anywhere :)</span></div>';
+    const loc = {
+      location: { address1: '' },
+      distance: 1003.12,
+    };
+
+    const result = script.formatGeoInfo(loc);
+
+    expect(result).to.equal(expected);
+  });
+});
+
 describe('buildUrl', () => {
   it('should create a URL with base, lat, and lng', () => {
     const base = 'https://ineedagyro.com';

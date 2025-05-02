@@ -71,6 +71,17 @@ describe('router', function () {
     sandbox.restore();
   });
 
+  it('should render version at /version', (done) => {
+    process.env.SOURCE_VERSION = '1234567890abcdef1234567890abcdef12345678';
+
+    agent.get('/version').end(function (err, res) {
+      expect(res.status).to.equal(200);
+      expect(res.text).to.equal('{"version":"1234567890abcdef1234567890abcdef12345678"}');
+
+      done();
+    });
+  });
+
   it('should render index at /', (done) => {
     agent.get('/').end(function (err, res) {
       expect(res.status).to.equal(200);

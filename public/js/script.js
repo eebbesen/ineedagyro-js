@@ -22,9 +22,8 @@ export function formatGeoInfo(loc) {
   let str = '';
   if (loc.location.address1) {
     let distance = loc.distance ? loc.distance : 0;
-    str += `
-    <div class="address" ><span class="lefty">${loc.location.address1}</span><span class="righty">${metersToMiles(distance)} miles</span></div>
-    `;
+    str +=
+      `<div class="address" ><span class="lefty">${loc.location.address1}</span><span class="righty">${metersToMiles(distance)} miles</span></div>`;
   } else {
     str +=
       '<div class="address" ><span class="lefty">food truck</span><span class="righty">Could be anywhere :)</span></div>';
