@@ -74,30 +74,48 @@ export function buildUrl(base, lat, lng, term) {
   return url;
 }
 
-export function locationSuccess(location) {
-  const params = getParams(window.location.href);
-  return function () {
-    const xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-      const json = JSON.parse(xhr.response);
-      const html = formatResults(json);
+// export function locationSuccess(location) {
+//   const params = getParams(window.location.href);
+//   return function (location) {
+//     const xhr = new XMLHttpRequest();
+//     xhr.onload = function () {
+//       const json = JSON.parse(xhr.response);
+//       const html = formatResults(json);
 
-      return (document.querySelector('#results').innerHTML = html);
-    };
-    xhr.open(
-      'GET',
-      buildUrl(window.location.origin,
+//       return (document.querySelector('#results').innerHTML = html);
+//     };
+//     xhr.open(
+//       'GET',
+//       buildUrl(window.location.origin,
+//         location.coords.latitude,
+//         location.coords.longitude,
+//         params.term),
+//     );
+//     xhr.send();
+//   };
+// }
+
+export function populateResults() {
+  const params = getParams(window.location.href);
+
+  navigator.geolocation.getCurrentPosition(
+    function (location) {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        const json = JSON.parse(xhr.response);
+        const html = formatResults(json);
+
+        return (document.querySelector('#results').innerHTML = html);
+      };
+      xhr.open(
+        'GET',
+        buildUrl(window.location.origin,
         location.coords.latitude,
         location.coords.longitude,
         params.term),
-    );
-    xhr.send();
-  };
-}
-
-export function populateResults() {
-  navigator.geolocation.getCurrentPosition(
-    locationSuccess(location),
+      );
+      xhr.send();
+    },
     function (err) {
       return (document.querySelector('#results').innerHTML =
         locationError(err));
