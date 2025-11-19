@@ -34,7 +34,7 @@
     "express-http-to-https": "latest",
     "express-session": "latest",
     "merge-descriptors": "latest",
-    "npm": ">=10.9.0",
+    "npm": ">=11.6.2",
     "request": "latest",
     "yelp-fusion": "latest"
   },
