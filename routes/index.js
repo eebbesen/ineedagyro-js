@@ -24,9 +24,9 @@ function buildRequest(req) {
 function gitSha() {
   let sha = ''
   try {
-    sha = process?.env?.HEROKU_BUILD_COMMIT === 'undefined' ?
-      execSync('git rev-parse HEAD')?.toString()?.trim() :
-      process?.env?.HEROKU_BUILD_COMMIT;
+    sha = process.env.HEROKU_BUILD_COMMIT === 'undefined' ?
+      execSync('git rev-parse HEAD').toString().trim() :
+      process.env.HEROKU_BUILD_COMMIT;
   } catch (e) {
     console.log('error getting sha', e);
   }

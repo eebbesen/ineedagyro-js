@@ -1,9 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-
-let app = express();
-
 import indexRoutes from './routes/index.js';
+
+const app = express();
+
 app.use(indexRoutes);
 
 app.set('view engine', 'ejs');

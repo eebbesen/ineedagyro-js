@@ -105,11 +105,9 @@ describe('buildUrl', () => {
     const lng = -122.4194;
     const term = 'greek gyro & falafel';
 
-    // Note: The buildUrl function doesn't encode the term, so our test reflects this
-    // In a real application, you might want to encode the term with encodeURIComponent()
     const result = script.buildUrl(base, lat, lng, term);
 
-    expect(result).to.equal('https://ineedagyro.com/recs?lat=37.7749&lng=-122.4194&term=greek gyro & falafel');
+    expect(result).to.equal('https://ineedagyro.com/recs?lat=37.7749&lng=-122.4194&term=greek+gyro+%26+falafel');
   });
 
   it('should work with base URLs that already have paths', () => {

@@ -49,29 +49,19 @@ const ALLOWED_PARAMS = ['lat', 'lng', 'term'];
 
 export function getParams(url) {
   const params = {};
-  const parser = new URL(url);
-  const query = parser.search.substring(1);
-
-  if (query.length > 0) {
-    const vars = query.split('&');
-    for (const varPair of vars) {
-      const pair = varPair.split('=');
-      if (ALLOWED_PARAMS.includes(pair[0])) {
-        params[pair[0]] = decodeURIComponent(pair[1]);
-      }
+  const { searchParams } = new URL(url);
+  for (const key of ALLOWED_PARAMS) {
+    if (searchParams.has(key)) {
+      params[key] = searchParams.get(key);
     }
   }
-
   return params;
 }
 
 export function buildUrl(base, lat, lng, term) {
-  let url = base + '/recs?lat=' + lat + '&lng=' + lng;
-  if (term) {
-    url += '&term=' + term;
-  }
-
-  return url;
+  const params = new URLSearchParams({ lat, lng });
+  if (term) params.set('term', term);
+  return `${base}/recs?${params}`;
 }
 
 // export function locationSuccess(location) {
@@ -99,26 +89,18 @@ export function populateResults() {
   const params = getParams(window.location.href);
 
   navigator.geolocation.getCurrentPosition(
-    function (location) {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function () {
-        const json = JSON.parse(xhr.response);
-        const html = formatResults(json);
-
-        return (document.querySelector('#results').innerHTML = html);
-      };
-      xhr.open(
-        'GET',
-        buildUrl(window.location.origin,
+    async (location) => {
+      const url = buildUrl(
+        window.location.origin,
         location.coords.latitude,
         location.coords.longitude,
-        params.term),
+        params.term,
       );
-      xhr.send();
+      const json = await fetch(url).then((res) => res.json());
+      document.querySelector('#results').innerHTML = formatResults(json);
     },
-    function (err) {
-      return (document.querySelector('#results').innerHTML =
-        locationError(err));
+    (err) => {
+      document.querySelector('#results').innerHTML = locationError(err);
     },
   );
 }
