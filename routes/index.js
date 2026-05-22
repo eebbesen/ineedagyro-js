@@ -5,7 +5,7 @@ import Yelp from 'yelp-fusion';
 import { execSync } from 'child_process';
 
 // redirect to https except when local or testing
-router.use(redirectToHTTPS([/localhost:8080/, /127.0.0.1:8080/], []));
+router.use(redirectToHTTPS([/localhost/, /127\.0\.0\.1/], []));
 
 function buildRequest(req) {
   console.log('lat', req.query.lat);
@@ -22,41 +22,36 @@ function buildRequest(req) {
 
 // HEROKU_BUILD_COMMIT is exposed on Heroku
 function gitSha() {
-  let sha = ''
+  const envSha = process.env.HEROKU_BUILD_COMMIT;
+  if (envSha && envSha !== 'undefined') return envSha;
   try {
-    sha = process.env.HEROKU_BUILD_COMMIT === 'undefined' ?
-      execSync('git rev-parse HEAD').toString().trim() :
-      process.env.HEROKU_BUILD_COMMIT;
+    return execSync('git rev-parse HEAD').toString().trim();
   } catch (e) {
     console.log('error getting sha', e);
+    return 'error getting sha';
   }
-
-  return sha === 'undefined' ? 'error getting sha' : sha;
 }
 
-router.get('/version', function (req, res) {
+router.get('/version', (req, res) => {
   res.send({ version: gitSha() });
 });
 
-router.get('/recs', function (req, res) {
+router.get('/recs', async (req, res) => {
   const s = buildRequest(req);
-
   const yelp = Yelp.client(process.env.YELP_API_KEY);
-  yelp
-    .search(s)
-    .then((results) => {
-      res.send({ locs: results.jsonBody.businesses });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  try {
+    const results = await yelp.search(s);
+    res.send({ locs: results.jsonBody.businesses });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
-router.get('/', function (req, res) {
+router.get('/', (req, res) => {
   res.render('index', { locs: [] });
 });
 
-router.get('/privacy', function (req, res) {
+router.get('/privacy', (req, res) => {
   res.render('privacy_policy');
 });
 

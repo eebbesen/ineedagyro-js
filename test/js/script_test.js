@@ -30,7 +30,7 @@ import * as script from '../../src/script.js';
 
 describe('formatGeoInfo', () => {
   it('should format the location info correctly when address1', () => {
-    const expected = '<div class="address" ><span class="lefty">1600 Grand Ave</span><span class="righty">0.62 miles</span></div>';
+    const expected = '<div class="address"><span class="lefty">1600 Grand Ave</span><span class="righty">0.62 miles</span></div>';
     const loc = {
       location: { address1: '1600 Grand Ave' },
       distance: 1003.12,
@@ -42,7 +42,7 @@ describe('formatGeoInfo', () => {
   });
 
   it('should format the location info correctly when no distance', () => {
-    const expected = '<div class="address" ><span class="lefty">1600 Grand Ave</span><span class="righty">0.00 miles</span></div>';
+    const expected = '<div class="address"><span class="lefty">1600 Grand Ave</span><span class="righty">0.00 miles</span></div>';
     const loc = {
       location: { address1: '1600 Grand Ave' },
     };
@@ -53,7 +53,7 @@ describe('formatGeoInfo', () => {
   });
 
   it('should format the location info correctly when no address1', () => {
-    const expected = '<div class="address" ><span class="lefty">food truck</span><span class="righty">Could be anywhere :)</span></div>';
+    const expected = '<div class="address"><span class="lefty">food truck</span><span class="righty">Could be anywhere :)</span></div>';
     const loc = {
       location: {  },
       distance: 1003.12,
@@ -65,7 +65,7 @@ describe('formatGeoInfo', () => {
   });
 
   it('should format the location info correctly when no address1', () => {
-    const expected = '<div class="address" ><span class="lefty">food truck</span><span class="righty">Could be anywhere :)</span></div>';
+    const expected = '<div class="address"><span class="lefty">food truck</span><span class="righty">Could be anywhere :)</span></div>';
     const loc = {
       location: { address1: '' },
       distance: 1003.12,
