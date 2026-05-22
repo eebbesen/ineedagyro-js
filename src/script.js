@@ -19,106 +19,58 @@ export function formatResults(json) {
 }
 
 export function formatGeoInfo(loc) {
-  let str = '';
   if (loc.location.address1) {
-    let distance = loc.distance ? loc.distance : 0;
-    str +=
-      `<div class="address" ><span class="lefty">${loc.location.address1}</span><span class="righty">${metersToMiles(distance)} miles</span></div>`;
-  } else {
-    str +=
-      '<div class="address" ><span class="lefty">food truck</span><span class="righty">Could be anywhere :)</span></div>';
+    const distance = loc.distance ?? 0;
+    return `<div class="address"><span class="lefty">${loc.location.address1}</span><span class="righty">${metersToMiles(distance)} miles</span></div>`;
   }
-  return str;
+  return '<div class="address"><span class="lefty">food truck</span><span class="righty">Could be anywhere :)</span></div>';
 }
 
 export function locationError(err) {
   console.log('Error getting location', err);
-  let message = `
+  const codeFragment = err.code ? `<p>error code: ${err.code}</p>` : '';
+  return `
   <div class="gyro_error">
     <h1>We cannot find your gyros because we are unable to get your location from your browser :(. Please enable location sharing.</h1>
     <p>${err.message}</p>
-  `;
-  if (err.code) {
-    message += `<p>error code: ${err.code}</p>`;
-  }
-
-  return `${message}</div>`;
+    ${codeFragment}</div>`;
 }
 
 const ALLOWED_PARAMS = ['lat', 'lng', 'term'];
 
 export function getParams(url) {
   const params = {};
-  const parser = new URL(url);
-  const query = parser.search.substring(1);
-
-  if (query.length > 0) {
-    const vars = query.split('&');
-    for (const varPair of vars) {
-      const pair = varPair.split('=');
-      if (ALLOWED_PARAMS.includes(pair[0])) {
-        params[pair[0]] = decodeURIComponent(pair[1]);
-      }
+  const { searchParams } = new URL(url);
+  for (const key of ALLOWED_PARAMS) {
+    if (searchParams.has(key)) {
+      params[key] = searchParams.get(key);
     }
   }
-
   return params;
 }
 
 export function buildUrl(base, lat, lng, term) {
-  let url = base + '/recs?lat=' + lat + '&lng=' + lng;
-  if (term) {
-    url += '&term=' + term;
-  }
-
-  return url;
+  const params = new URLSearchParams({ lat, lng });
+  if (term) params.set('term', term);
+  return `${base}/recs?${params}`;
 }
-
-// export function locationSuccess(location) {
-//   const params = getParams(window.location.href);
-//   return function (location) {
-//     const xhr = new XMLHttpRequest();
-//     xhr.onload = function () {
-//       const json = JSON.parse(xhr.response);
-//       const html = formatResults(json);
-
-//       return (document.querySelector('#results').innerHTML = html);
-//     };
-//     xhr.open(
-//       'GET',
-//       buildUrl(window.location.origin,
-//         location.coords.latitude,
-//         location.coords.longitude,
-//         params.term),
-//     );
-//     xhr.send();
-//   };
-// }
 
 export function populateResults() {
   const params = getParams(window.location.href);
 
   navigator.geolocation.getCurrentPosition(
-    function (location) {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function () {
-        const json = JSON.parse(xhr.response);
-        const html = formatResults(json);
-
-        return (document.querySelector('#results').innerHTML = html);
-      };
-      xhr.open(
-        'GET',
-        buildUrl(window.location.origin,
+    async (location) => {
+      const url = buildUrl(
+        window.location.origin,
         location.coords.latitude,
         location.coords.longitude,
-        params.term),
+        params.term,
       );
-      xhr.send();
+      const json = await fetch(url).then((res) => res.json());
+      document.querySelector('#results').innerHTML = formatResults(json);
     },
-    function (err) {
-      return (document.querySelector('#results').innerHTML =
-        locationError(err));
+    (err) => {
+      document.querySelector('#results').innerHTML = locationError(err);
     },
   );
 }

@@ -12,29 +12,25 @@ import sinon from 'sinon';
 let sandbox;
 let stub;
 
-describe('gitSha', function () {
-  beforeEach(function () {
+describe('gitSha', () => {
+  beforeEach(() => {
     process.env.HEROKU_BUILD_COMMIT = undefined;
   });
 
-  it('should return HEROKU_BUILD_COMMIT', (done) => {
+  it('should return HEROKU_BUILD_COMMIT', () => {
     process.env.HEROKU_BUILD_COMMIT = '1234567890abcdef1234567890abcdef12345678';
     const result = gitSha();
     expect(result).to.equal('1234567890abcdef1234567890abcdef12345678');
-
-    done();
   });
 
-  it('should return sha from exec', (done) => {
+  it('should return sha from exec', () => {
     const result = gitSha();
     expect(result).to.match(/^[0-9a-f]{40}$/);
     expect(result).not.to.equal('1234567890abcdef1234567890abcdef12345678');
-
-    done();
   });
 });
 
-describe('buldRequest', function () {
+describe('buldRequest', () => {
   it('should build a request with lat and lng', () => {
     const req = {
       query: {
@@ -70,96 +66,64 @@ describe('buldRequest', function () {
   });
 });
 
-describe('router', function () {
-  beforeEach(function () {
+describe('router', () => {
+  beforeEach(() => {
     sandbox = sinon.createSandbox();
     stub = sandbox.stub(Yelp, 'client');
   });
 
-  afterEach(function () {
+  afterEach(() => {
     sandbox.restore();
   });
 
-  it('should render version at /version', (done) => {
+  it('should render version at /version', async () => {
     process.env.HEROKU_BUILD_COMMIT = '1234567890abcdef1234567890abcdef12345678';
-
-    agent.get('/version').end(function (err, res) {
-      expect(res.status).to.equal(200);
-      expect(res.text).to.equal('{"version":"1234567890abcdef1234567890abcdef12345678"}');
-
-      done();
-    });
+    const res = await agent.get('/version');
+    expect(res.status).to.equal(200);
+    expect(res.text).to.equal('{"version":"1234567890abcdef1234567890abcdef12345678"}');
   });
 
-  it('should render index at /', (done) => {
-    agent.get('/').end(function (err, res) {
-      expect(res.status).to.equal(200);
-      expect(res.text).to.contain('open_gyro_outline_500.jpeg');
-
-      done();
-    });
+  it('should render index at /', async () => {
+    const res = await agent.get('/');
+    expect(res.status).to.equal(200);
+    expect(res.text).to.contain('open_gyro_outline_500.jpeg');
   });
 
-  it('should render index at /recs with locs', (done) => {
+  it('should render index at /recs with locs', async () => {
     stub.returns({
-      search: function () {
-        return new Promise(function (resolve) {
-          resolve({
-            jsonBody: {
-              businesses: [
-                {
-                  url: 'https://fakestaurant.com/1',
-                  name: 'Gyro Hero',
-                  location: {
-                    address1: '1600 Grand Ave',
-                  },
-                },
-              ],
+      search: () => Promise.resolve({
+        jsonBody: {
+          businesses: [
+            {
+              url: 'https://fakestaurant.com/1',
+              name: 'Gyro Hero',
+              location: { address1: '1600 Grand Ave' },
             },
-          });
-        });
-      },
+          ],
+        },
+      }),
     });
 
-    agent
-      .get('/recs')
-      .query({ lat: 44, lng: 93 })
-      .end(function (err, res) {
-        expect(res.status).to.equal(200);
-        expect(res.text).to.contain('Hero');
-        expect(stub.called).to.equal(true);
-
-        done();
-      });
+    const res = await agent.get('/recs').query({ lat: 44, lng: 93 });
+    expect(res.status).to.equal(200);
+    expect(res.text).to.contain('Hero');
+    expect(stub.called).to.equal(true);
   });
 
-  it('should render index at /recs with nothing', (done) => {
+  it('should render index at /recs with nothing', async () => {
     stub.returns({
-      search: function () {
-        return new Promise(function (resolve) {
-          resolve({ jsonBody: { businesses: [{}] } });
-        });
-      },
+      search: () => Promise.resolve({ jsonBody: { businesses: [{}] } }),
     });
 
-    agent
-      .get('/recs')
-      .query({ lat: 44, lng: 93 })
-      .end(function (err, res) {
-        expect(res.status).to.equal(200);
-        expect(res.text).to.equal('{"locs":[{}]}');
-        expect(stub.called).to.equal(true);
-
-        done();
-      });
+    const res = await agent.get('/recs').query({ lat: 44, lng: 93 });
+    expect(res.status).to.equal(200);
+    expect(res.text).to.equal('{"locs":[{}]}');
+    expect(stub.called).to.equal(true);
   });
 
-  it('should render privacy policy at /privacy', (done) => {
-    agent.get('/privacy').end(function (err, res) {
-      expect(res.status).to.equal(200);
-      expect(res.text).to.contain('this gyro service');
-
-      done();
-    });
+  it('should render privacy policy at /privacy', async () => {
+    const res = await agent.get('/privacy');
+    expect(res.status).to.equal(200);
+    expect(res.text).to.contain('this gyro service');
   });
 });

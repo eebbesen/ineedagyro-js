@@ -4,7 +4,7 @@
     "node": "22.x",
     "npm": ">=10.9.0"
   },
-  "version": "3.4.2",
+  "version": "3.5.0",
   "type": "module",
   "description": "Unless you're eating one right now, you probably need a gyro",
   "main": "app.js",
@@ -28,26 +28,18 @@
   "author": "eebbesen",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "latest",
     "ejs": "latest",
     "express": "latest",
     "express-http-to-https": "latest",
-    "express-session": "latest",
-    "merge-descriptors": "latest",
     "npm": ">=10.9.0",
-    "request": "latest",
     "yelp-fusion": "latest"
   },
   "devDependencies": {
     "c8": "latest",
     "chai": "latest",
-    "extend": "latest",
-    "fs": "latest",
-    "jasmine": "latest",
     "mocha": "latest",
     "mochawesome": "latest",
     "prettier": "latest",
-    "should": "latest",
     "sinon": "latest",
     "supertest": "latest"
   },
