@@ -1,5 +1,9 @@
 # ineedagyro-js
 
+## DEPRECATED
+
+See https://github.com/eebbesen/ineedagyro-cf
+
 Gyros near you!
 
 https://www.ineedagyro.com
